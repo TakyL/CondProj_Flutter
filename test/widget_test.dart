@@ -9,8 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_calendrier/main.dart';
+import '../lib/calendrier.dart';
 
 void main() {
+  // Auto add Permet de faire des tests dans l'app
+  /*
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
@@ -26,5 +29,36 @@ void main() {
     // Verify that our counter has incremented.
     expect(find.text('0'), findsNothing);
     expect(find.text('1'), findsOneWidget);
+  });*/
+
+  group('Counter', () {
+    test('value should start at 0', () {
+      expect(Counter().value, 0);
+    });
+
+    test('value should be incremented', () {
+      final counter = Counter();
+
+      counter.increment();
+
+      expect(counter.value, 1);
+    });
+
+    test('value should be decremented', () {
+      final counter = Counter();
+
+      counter.decrement();
+
+      expect(counter.value, -1);
+    });
+
+    test('value should be equal to zero', () {
+      final counter = Counter();
+
+      counter.decrement();
+      counter.increment();
+
+      expect(counter.value, 0);
+    });
   });
 }
