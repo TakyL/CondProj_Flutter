@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'inter_ajoutevent.dart';
 
+import 'package:intl/date_symbol_data_local.dart'; //Pour le local
+
 void main() {
-  runApp(const MyApp());
+  initializeDateFormatting().then((_) => runApp(MyApp()));
+  //runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -32,18 +35,28 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-/*
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }*/
+  DateTime selectedday = DateTime.now();
+  DateTime focusedday = DateTime.now();
+  CalendarFormat format = CalendarFormat.month;
 
   void menuajoutevent() //Push vers le menu d'ajout d'evenement
   {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => Inter_Event()));
   }
+
+/**
+ * Permet de changer le jour selectionne
+ 
+  void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+  if (!isSameDay(_selectedDay, selectedDay)) {
+    setState(() {
+      _focusedDay = focusedDay;
+      _selectedDay = selectedDay;
+      _selectedEvents = _getEventsForDay(selectedDay);
+    });
+  }
+}*/
 
   @override
   Widget build(BuildContext context) {
@@ -53,12 +66,48 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             TableCalendar(
-              focusedDay: DateTime.now(),
-              firstDay: DateTime(1990),
-              lastDay: DateTime(2050),
+              locale: 'fr_FR',
+              focusedDay: focusedday,
+              firstDay: DateTime(2020),
+              lastDay: DateTime(
+                  2050), //Rendre ça évolutif genre ça fonctionnera même en 2050
+              calendarFormat: format,
+              onFormatChanged: (CalendarFormat _format) {
+                setState(() {
+                  format = _format;
+                });
+              },
+              onDaySelected: (DateTime selectedDay, DateTime focusedDay) {
+                setState(() {
+                  selectedday = selectedDay;
+                  focusedday = focusedDay;
+                });
+              },
+              availableCalendarFormats: const {
+                CalendarFormat.month: 'Mois',
+                CalendarFormat.twoWeeks: '2 semaines',
+                CalendarFormat.week: 'Semaine',
+              },
+              weekNumbersVisible: true,
+              startingDayOfWeek: StartingDayOfWeek.monday,
+              // const [DateTime.saturday, DateTime.sunday]
+              calendarStyle: const CalendarStyle(
+                  isTodayHighlighted: true,
+                  selectedDecoration: BoxDecoration(
+                    color: Colors.red,
+                    shape: BoxShape.rectangle,
+                  ),
+                  selectedTextStyle: const TextStyle(color: Colors.white),
+                  todayDecoration: BoxDecoration(
+                    color: Colors.lightBlueAccent,
+                    shape: BoxShape.rectangle,
+                  )),
+              selectedDayPredicate: (DateTime date) {
+                return isSameDay(selectedday, date);
+              },
             ),
           ],
         ),
