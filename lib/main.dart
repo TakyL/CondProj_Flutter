@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'inter_ajoutevent.dart';
-
+import 'classes/calendrier_class.dart';
 import 'package:intl/date_symbol_data_local.dart'; //Pour le local
 
 void main() {
@@ -68,12 +68,12 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            TableCalendar(
+             TableCalendar(
               locale: 'fr_FR',
               focusedDay: focusedday,
               firstDay: DateTime(2020),
               lastDay: DateTime(
-                  2050), //Rendre ça évolutif genre ça fonctionnera même en 2050
+                  2050), 
               calendarFormat: format,
               onFormatChanged: (CalendarFormat _format) {
                 setState(() {
