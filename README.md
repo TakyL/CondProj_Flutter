@@ -18,4 +18,4 @@ samples, guidance on mobile development, and a full API reference.
 ##Lancer flutter depuis VSC
 Si le path vers flutter (variable d'environnement) est correctement configuré, flutter run -d chrome pour lancer l'app sur l'app en mode debug sur chrome
 
-###Bonjour : faire ce readme
+###Bonjour : faire ce readme/ faire du mermaid.js
