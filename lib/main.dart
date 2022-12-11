@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'inter_ajoutevent.dart';
 import 'classes/calendrier_class.dart';
+import 'classes/evenements_class.dart';
 import 'package:intl/date_symbol_data_local.dart'; //Pour le local
 
 void main() {
@@ -29,7 +30,7 @@ class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
-
+  //On pourra avoir la liste des evenements => selectedevents
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -39,10 +40,52 @@ class _MyHomePageState extends State<MyHomePage> {
   DateTime focusedday = DateTime.now();
   CalendarFormat format = CalendarFormat.month;
 
+  late Map<DateTime, List<Evenement>> selectedevents;
+  final _CtrlNom = TextEditingController();
+
+
   void menuajoutevent() //Push vers le menu d'ajout d'evenement
   {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Inter_Event()));
+   /* showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+                title: Text("Add event"),
+                content: TextFormField(
+                  controller: _CtrlNom,
+                ),
+                actions: [
+                  TextButton(
+                      onPressed: () {
+                        if (_CtrlNom.text.isEmpty) {
+                        } else {
+                          AjouteEventtocetteputaineliste(focusedday,
+                              Evenement(nom: _CtrlNom.text.trim()));
+                        }
+                        Navigator.pop(context);
+                        _CtrlNom.clear();
+                        setState(() {});
+                        debugPrint(selectedevents.toString());
+                        return;
+                      },
+                      child: Text("Ok"))
+                ]));*/
+     Navigator.push(   context, MaterialPageRoute(builder: (context) => Inter_Event(time: focusedday, callback: AjouteEventtocetteputaineliste)));
+  }
+
+  void AjouteEventtocetteputaineliste(DateTime d, Evenement e) {
+    if (selectedevents[d] != null) {
+      selectedevents[d]?.add(e);
+    } else {
+      selectedevents[d] = [
+        Evenement(nom: e.nom)
+      ]; //Toute cette fonction est à refaire
+      debugPrint("AJOUT");
+    }
+    //selectedevents[d].add(e);
+  }
+
+  List<Evenement> _getEventsFromDay(DateTime d) {
+    return selectedevents[d] ?? []; //TODO Comprendre ce que j'ai écrit
   }
 
 /**
@@ -57,6 +100,17 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 }*/
+  @override
+  void dispose() {
+    _CtrlNom.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    selectedevents = {};
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,12 +122,11 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-             TableCalendar(
+            TableCalendar(
               locale: 'fr_FR',
               focusedDay: focusedday,
               firstDay: DateTime(2020),
-              lastDay: DateTime(
-                  2050), 
+              lastDay: DateTime(2050),
               calendarFormat: format,
               onFormatChanged: (CalendarFormat _format) {
                 setState(() {
@@ -109,6 +162,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 return isSameDay(selectedday, date);
               },
             ),
+            ..._getEventsFromDay(selectedday).map((Evenement e) => ListTile(
+                  title: Text(e.nom),
+                )),
           ],
         ),
       ),
