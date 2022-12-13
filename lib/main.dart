@@ -3,10 +3,12 @@ import 'package:table_calendar/table_calendar.dart';
 import 'inter_ajoutevent.dart';
 import 'classes/calendrier_class.dart';
 import 'classes/evenements_class.dart';
-import 'package:intl/date_symbol_data_local.dart'; //Pour le local
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'int/fr.dart';
 
 void main() {
-  initializeDateFormatting().then((_) => runApp(MyApp()));
+  initializeDateFormatting().then((_) => runApp(const MyApp()));
   //runApp(const MyApp());
 }
 
@@ -21,6 +23,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+   /*     localizationsDelegates: [
+    GlobalMaterialLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+  ],supportedLocales: [
+    Locale('fr')
+  ]
+  ,*/
       home: const MyHomePage(title: 'PlanIf'),
     );
   }
@@ -29,7 +39,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
 
-  final String title;
+  final String title; //Nom du calendrier
   //On pourra avoir la liste des evenements => selectedevents
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -41,35 +51,14 @@ class _MyHomePageState extends State<MyHomePage> {
   CalendarFormat format = CalendarFormat.month;
 
   late Map<DateTime, List<Evenement>> selectedevents;
-  final _CtrlNom = TextEditingController();
-
 
   void menuajoutevent() //Push vers le menu d'ajout d'evenement
   {
-   /* showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-                title: Text("Add event"),
-                content: TextFormField(
-                  controller: _CtrlNom,
-                ),
-                actions: [
-                  TextButton(
-                      onPressed: () {
-                        if (_CtrlNom.text.isEmpty) {
-                        } else {
-                          AjouteEventtocetteputaineliste(focusedday,
-                              Evenement(nom: _CtrlNom.text.trim()));
-                        }
-                        Navigator.pop(context);
-                        _CtrlNom.clear();
-                        setState(() {});
-                        debugPrint(selectedevents.toString());
-                        return;
-                      },
-                      child: Text("Ok"))
-                ]));*/
-     Navigator.push(   context, MaterialPageRoute(builder: (context) => Inter_Event(time: focusedday, callback: AjouteEventtocetteputaineliste)));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Inter_Event(
+                time: focusedday, callback: AjouteEventtocetteputaineliste)));
   }
 
   void AjouteEventtocetteputaineliste(DateTime d, Evenement e) {
@@ -100,9 +89,9 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 }*/
+
   @override
   void dispose() {
-    _CtrlNom.dispose();
     super.dispose();
   }
 

@@ -36,11 +36,17 @@ dependencies:
   cupertino_icons: ^1.0.2
   table_calendar: ^3.0.7
   flutter_datetime_picker: ^1.5.1
-  intl: ^0.17.0
+  intl: ^0.17.0 #Locale tablecalendar
+  syncfusion_flutter_datepicker: ^20.3.60 #Date picker mais avec beaucoup plus de possibilités non used mais pb de locale  
 
+  flutter_localizations: # Add this line
+    sdk: flutter
+    
 dev_dependencies:
   flutter_test:
     sdk: flutter
+    intl: ^0.17.0 #Locale tablecalendar
+ #   intl: ^0.17.0
    # test: 1.22.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
