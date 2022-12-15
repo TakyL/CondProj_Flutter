@@ -6,6 +6,7 @@ import 'classes/evenements_class.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'int/fr.dart';
+import 'classes/priorité_class.dart';
 
 void main() {
   initializeDateFormatting().then((_) => runApp(const MyApp()));
@@ -23,12 +24,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-   /*     localizationsDelegates: [
-    GlobalMaterialLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
+        /*   localizationsDelegates: [
+    GlobalMaterialLocalizations.delegates
+  //  GlobalWidgetsLocalizations.delegate,
+  //  GlobalCupertinoLocalizations.delegate,
   ],supportedLocales: [
-    Locale('fr')
+    const Locale('en'),
+    const Locale('fr')
   ]
   ,*/
       home: const MyHomePage(title: 'PlanIf'),
@@ -77,6 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return selectedevents[d] ?? []; //TODO Comprendre ce que j'ai écrit
   }
 
+  List<prioriete> listp = <prioriete>[];
 /**
  * Permet de changer le jour selectionne
  
