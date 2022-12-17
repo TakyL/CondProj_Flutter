@@ -1,4 +1,6 @@
-import 'dart:html';
+// ignore_for_file: avoid_web_libraries_in_flutter
+
+//import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -54,7 +56,7 @@ class Calendrier extends Widget {
     if (partage) {
       tableauUser.add(id);
     } else {
-      throw ErrorEvent("Ce calendrier n'est pas partagé ");
+      throw Exception("Ce calendrier n'est pas partagé ");
     }
   }
 

@@ -5,11 +5,11 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+// ignore: unused_import
 import 'package:flutter_calendrier/main.dart';
-import '../lib/calendrier.dart';
+import 'package:flutter_calendrier/calendrier.dart';
 
 void main() {
   // Auto add Permet de faire des tests dans l'app

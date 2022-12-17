@@ -29,7 +29,7 @@ class _Inter_EventState extends State<Inter_Event> {
   prioriete dropdownValue = listp.first;
 
   Color? DetermineCouleur(prioriete value) {
-    debugPrint(value.toString());
+   // debugPrint(value.toString());
     List<int> l = listp.map((e) => e.id).toList();
     for (var i = 1; i <= l.length - 1; i++) {
       if (value.id == i) return listp[i].couleur;
@@ -68,8 +68,8 @@ class _Inter_EventState extends State<Inter_Event> {
       minuteLabelText: "Minutes",
       builder: (context, child) {
         {
-          Locale locale = Localizations.localeOf(context);
-          debugPrint(locale.toString());
+          //Locale locale = Localizations.localeOf(context);
+          //debugPrint(locale.toString());
           return MediaQuery(
             data: MediaQuery.of(context).copyWith(
               alwaysUse24HourFormat: true,
