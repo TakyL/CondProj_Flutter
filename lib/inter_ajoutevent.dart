@@ -6,6 +6,7 @@ import 'classes/evenements_class.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'interfaces/Widget_interface_ajoutevent/Widgets.dart';
 
 List<String> l = listp.map((e) => e.nom).toList();
 
@@ -22,18 +23,26 @@ class Inter_Event extends StatefulWidget {
 
 class _Inter_EventState extends State<Inter_Event> {
   final _formKey = GlobalKey<FormState>();
-  final _CtrlNom = TextEditingController();
   final _tePrenom = TextEditingController();
-  final _CtrlDate = TextEditingController();
+  final _CtrlNom = TextEditingController(); //Champ Nom event
+  final _CtrlDateD = TextEditingController();
+  final _CtrlDateF = TextEditingController();
+  final _CtrlHeureD = TextEditingController();
+  final _CtrlHeureF = TextEditingController();
 
   prioriete dropdownValue = listp.first;
 
   Color? DetermineCouleur(prioriete value) {
-   // debugPrint(value.toString());
-    List<int> l = listp.map((e) => e.id).toList();
-    for (var i = 1; i <= l.length - 1; i++) {
-      if (value.id == i) return listp[i].couleur;
-    }
+    // debugPrint(value.toString());
+    return value.couleur;
+    //debugPrint(listp.toString());
+  }
+
+  @override
+  void dispose() {
+    _CtrlNom.dispose();
+    _tePrenom.dispose();
+    super.dispose();
   }
 
   void loginbutton() {
@@ -45,6 +54,82 @@ class _Inter_EventState extends State<Inter_Event> {
               "Evenement ajoute au calendrier"))); //Possibilité de subdiviser en fonction ou en classe
     }
   }
+
+  ///Widgets [ à déplacer plus tard dans un fichier à part où on retrouve tous les widgets mais y'a des problèmes genre pour le context, le dropdownbutton notament, à voir si on peut pas créer une classe qui derriere va recup les fonctions comme ça si on en constructeur, on met le context, seul problème sera le widget.time donc tout les callback]
+   DropdownButtonFormField<prioriete>   EnferEtDamanation() //Gère le dropdownButtonFiled, c'est la cause des lignes d'erreurs car en fait j'ai mis expanded sauf que ça ignore les règles expanded et du coup faut tout mettre en expanded et que c'est un peu le bordel actuellement
+  {
+    return DropdownButtonFormField<prioriete>(
+        value: dropdownValue,
+        icon: const Icon(Icons.arrow_downward),
+        elevation: 16,
+        //dropdownColor: DetermineCouleur(dropdownValue),
+        onChanged: (prioriete? value) {
+          // This is called when the user selects an item.
+          setState(() {
+            dropdownValue = value!;
+          });
+        },
+        items: listp.map<DropdownMenuItem<prioriete>>((prioriete value) {
+          return DropdownMenuItem<prioriete>(
+              value: value,
+              child: Expanded(
+                  child: Container(
+                decoration: BoxDecoration(color: value.couleur),
+                alignment: Alignment.center,
+                child: Text(value.nom),
+              )));
+        }).toList());
+  }
+
+  Row LigneDate(
+      String nom, TextEditingController Ctrl1, TextEditingController Ctrl2) {
+    return Row(children: [
+      Align(
+        alignment: Alignment.topLeft,
+        child: SizedBox(
+          width:
+              200, //A adapater en fonction de la taille de l'écran / 200px pour les mobiles
+          child: TextFormField(
+              controller: Ctrl1,
+              decoration: InputDecoration(
+                icon: const Icon(Icons.calendar_today), //icon of text field
+                labelText: "Date de $nom",
+              ),
+              readOnly: true, // when true user cannot edit text
+              onTap: () async {
+                DateTime? choix = await datePicker();
+                setState(() {
+                  if (choix != null) {
+                    Ctrl1.text = DateFormat('yyyy-MM-dd').format(choix);
+                  }
+                });
+              }),
+        ),
+      ),
+      Align(
+          alignment: Alignment.topLeft,
+          child: SizedBox(
+            width: 200,
+            child: TextFormField(
+                controller: Ctrl2, //editing controller of this TextField
+                decoration: InputDecoration(
+                    icon: const Icon(
+                        Icons.watch_later_outlined), //icon of text field
+                    labelText: "Heure de $nom" //label text of field
+                    ),
+                readOnly: true, // when true user cannot edit text
+                onTap: () async {
+                  TimeOfDay? choix = await hourPicker();
+                  setState(() {
+                    if (choix != null) {
+                      Ctrl2.text = "${choix.hour}:${choix.minute}";
+                    }
+                  });
+                }),
+          ))
+    ]);
+  }
+
 
   Future<DateTime?> datePicker() {
     return showDatePicker(
@@ -69,7 +154,6 @@ class _Inter_EventState extends State<Inter_Event> {
       builder: (context, child) {
         {
           //Locale locale = Localizations.localeOf(context);
-          //debugPrint(locale.toString());
           return MediaQuery(
             data: MediaQuery.of(context).copyWith(
               alwaysUse24HourFormat: true,
@@ -79,13 +163,6 @@ class _Inter_EventState extends State<Inter_Event> {
         }
       },
     );
-  }
-
-  @override
-  void dispose() {
-    _CtrlNom.dispose();
-    _tePrenom.dispose();
-    super.dispose();
   }
 
   @override
@@ -114,83 +191,15 @@ class _Inter_EventState extends State<Inter_Event> {
                       return null;
                     },
                   ),
-                  Row(children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: SizedBox(
-                        width: 200,
-                        child: TextFormField(
-                            controller:
-                                _CtrlDate, //editing controller of this TextField
-                            decoration: const InputDecoration(
-                                icon: Icon(
-                                    Icons.calendar_today), //icon of text field
-                                labelText: "Date de début" //label text of field
-                                ),
-                            readOnly: true, // when true user cannot edit text
-                            onTap: () async {
-                              DateTime? choix = await datePicker();
-                              setState(() {
-                                if (choix != null) {
-                                  _CtrlDate.text =
-                                      DateFormat('yyyy-MM-dd').format(choix);
-                                }
-                              });
-                            }),
-                      ),
-                    ),
-                    Align(
-                        alignment: Alignment.topLeft,
-                        child: SizedBox(
-                          width: 200,
-                          child: TextFormField(
-                              controller:
-                                  _CtrlDate, //editing controller of this TextField
-                              decoration: const InputDecoration(
-                                  icon: Icon(Icons
-                                      .calendar_today), //icon of text field
-                                  labelText:
-                                      "Heure de début" //label text of field
-                                  ),
-                              readOnly: true, // when true user cannot edit text
-                              onTap: () async {
-                                TimeOfDay? choix = await hourPicker();
-                                setState(() {
-                                  if (choix != null) {
-                                    _CtrlDate.text =
-                                        "${choix.hour}:${choix.minute}";
-                                  }
-                                });
-                              }),
-                        )), //FIN d'opti
-                  ])
+                  LigneDate("début", _CtrlDateD, _CtrlHeureD),
+                  LigneDate("fin", _CtrlDateF, _CtrlHeureF),
+                  EnferEtDamanation(),
                 ],
               )),
           TextButton(onPressed: loginbutton, child: const Text("Valider")),
           TextButton(
               onPressed: () => Navigator.pop(context),
               child: const Text("Retour")),
-          DropdownButtonFormField<prioriete>(
-            value: dropdownValue,
-            icon: const Icon(Icons.arrow_downward),
-            elevation: 16,
-            dropdownColor: DetermineCouleur(dropdownValue),
-            style: const TextStyle(
-                color: Colors.deepPurple, backgroundColor: Colors.amberAccent),
-            onChanged: (prioriete? value) {
-              // This is called when the user selects an item.
-              setState(() {
-                dropdownValue = value!;
-              });
-            },
-            items: listp.map<DropdownMenuItem<prioriete>>((prioriete value) {
-              return DropdownMenuItem<prioriete>(
-                value: value,
-                child: Container(
-                    color: DetermineCouleur(value), child: Text(value.nom)),
-              );
-            }).toList(),
-          )
         ],
       )),
     ));
