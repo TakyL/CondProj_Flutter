@@ -41,6 +41,7 @@ dependencies:
 
   flutter_localizations: # Add this line
     sdk: flutter
+  firebase_core: ^2.4.1
     
 dev_dependencies:
   flutter_test:

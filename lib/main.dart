@@ -7,6 +7,8 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'int/fr.dart';
 import 'classes/priorité_class.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 
 void main() {
   initializeDateFormatting().then((_) => runApp(const MyApp()));
