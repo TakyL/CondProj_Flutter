@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "578900044781",
+    "project_id": "flutterbddcondprj",
+    "storage_bucket": "flutterbddcondprj.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:578900044781:android:3f40a197318031938415e4",
+        "android_client_info": {
+          "package_name": "com.example.flutter_calendrier"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "578900044781-qnuljocqejmhf751hvk1c05tivkl19gq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjdV6n1hQjMUpvLFplJIbKgtmt_-7gSL4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "578900044781-qnuljocqejmhf751hvk1c05tivkl19gq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
