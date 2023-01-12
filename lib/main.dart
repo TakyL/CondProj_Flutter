@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_calendrier/db/database_interface.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'inter_ajoutevent.dart';
 import 'classes/calendrier_class.dart';
@@ -8,11 +9,16 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'int/fr.dart';
 import 'classes/priorité_class.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_calendrier/firebase_options.dart';
+import 'package:firebase_database/firebase_database.dart';
 
-
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   initializeDateFormatting().then((_) => runApp(const MyApp()));
-  //runApp(const MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -26,7 +32,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-        /*   localizationsDelegates: [
+      /*   localizationsDelegates: [
     GlobalMaterialLocalizations.delegates
   //  GlobalWidgetsLocalizations.delegate,
   //  GlobalCupertinoLocalizations.delegate,
@@ -50,6 +56,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  FirebaseDatabase database = FirebaseDatabase.instance;
+  DatabaseReference ref = FirebaseDatabase.instance.ref();
+  void fas(DatabaseReference ref) async {
+    Emp e = Emp(ref, r: ref);
+    e.getDonnees();
+    e.getDonneesById(1);
+  }
+
   DateTime selectedday = DateTime.now();
   DateTime focusedday = DateTime.now();
   CalendarFormat format = CalendarFormat.month;
@@ -104,6 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     selectedevents = {};
     super.initState();
+    fas(ref);
   }
 
   @override
