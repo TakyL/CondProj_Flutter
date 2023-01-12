@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_calendrier/db/database_interface.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'inter_ajoutevent.dart';
+import 'view/inter_ajoutevent.dart';
 import 'classes/calendrier_class.dart';
 import 'classes/evenements_class.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -9,7 +9,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'int/fr.dart';
 import 'classes/priorité_class.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_calendrier/firebase_options.dart';
+import 'package:flutter_calendrier/db/firebase_options.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 void main() async {
@@ -56,6 +56,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   FirebaseDatabase database = FirebaseDatabase.instance;
   DatabaseReference ref = FirebaseDatabase.instance.ref();
   void fas(DatabaseReference ref) async {

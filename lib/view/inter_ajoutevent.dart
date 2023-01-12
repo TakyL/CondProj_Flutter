@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calendrier/classes/priorit%C3%A9_class.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
-import 'classes/evenements_class.dart';
+import '../classes/evenements_class.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'interfaces/Widget_interface_ajoutevent/Widgets.dart';
+import '../viewmodel/Widget_interface_ajoutevent/viewmodel_interfaceajoutevent.dart';
 
 List<String> l = listp.map((e) => e.nom).toList();
 
@@ -56,7 +56,7 @@ class _Inter_EventState extends State<Inter_Event> {
   }
 
   ///Widgets [ à déplacer plus tard dans un fichier à part où on retrouve tous les widgets mais y'a des problèmes genre pour le context, le dropdownbutton notament, à voir si on peut pas créer une classe qui derriere va recup les fonctions comme ça si on en constructeur, on met le context, seul problème sera le widget.time donc tout les callback]
-   DropdownButtonFormField<prioriete>   EnferEtDamanation() //Gère le dropdownButtonFiled, c'est la cause des lignes d'erreurs car en fait j'ai mis expanded sauf que ça ignore les règles expanded et du coup faut tout mettre en expanded et que c'est un peu le bordel actuellement
+   DropdownButtonFormField<prioriete>   WidgetDropDownButton() //Gère le dropdownButtonFiled, c'est la cause des lignes d'erreurs car en fait j'ai mis expanded sauf que ça ignore les règles expanded et du coup faut tout mettre en expanded et que c'est un peu le bordel actuellement
   {
     return DropdownButtonFormField<prioriete>(
         value: dropdownValue,
@@ -72,12 +72,7 @@ class _Inter_EventState extends State<Inter_Event> {
         items: listp.map<DropdownMenuItem<prioriete>>((prioriete value) {
           return DropdownMenuItem<prioriete>(
               value: value,
-              child: Expanded(
-                  child: Container(
-                decoration: BoxDecoration(color: value.couleur),
-                alignment: Alignment.center,
-                child: Text(value.nom),
-              )));
+                  child: Text(value.nom));
         }).toList());
   }
 
@@ -193,7 +188,7 @@ class _Inter_EventState extends State<Inter_Event> {
                   ),
                   LigneDate("début", _CtrlDateD, _CtrlHeureD),
                   LigneDate("fin", _CtrlDateF, _CtrlHeureF),
-                  EnferEtDamanation(),
+                  WidgetDropDownButton(),
                 ],
               )),
           TextButton(onPressed: loginbutton, child: const Text("Valider")),
