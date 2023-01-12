@@ -8,8 +8,7 @@ import 'package:flutter/foundation.dart'
 ///
 /// Example:
 /// ```dart
-import 'firebase_options.dart';
-
+/// import 'firebase_options.dart';
 /// // ...
 /// await Firebase.initializeApp(
 ///   options: DefaultFirebaseOptions.currentPlatform,
@@ -53,6 +52,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '578900044781',
     projectId: 'flutterbddcondprj',
     authDomain: 'flutterbddcondprj.firebaseapp.com',
+    databaseURL: 'https://flutterbddcondprj-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'flutterbddcondprj.appspot.com',
   );
 
@@ -61,6 +61,7 @@ class DefaultFirebaseOptions {
     appId: '1:578900044781:android:3f40a197318031938415e4',
     messagingSenderId: '578900044781',
     projectId: 'flutterbddcondprj',
+    databaseURL: 'https://flutterbddcondprj-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'flutterbddcondprj.appspot.com',
   );
 
@@ -69,9 +70,9 @@ class DefaultFirebaseOptions {
     appId: '1:578900044781:ios:780853b430e81bc78415e4',
     messagingSenderId: '578900044781',
     projectId: 'flutterbddcondprj',
+    databaseURL: 'https://flutterbddcondprj-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'flutterbddcondprj.appspot.com',
-    iosClientId:
-        '578900044781-t4dt622qb2pqdteeikgjqg685de49k6h.apps.googleusercontent.com',
+    iosClientId: '578900044781-t4dt622qb2pqdteeikgjqg685de49k6h.apps.googleusercontent.com',
     iosBundleId: 'com.example.flutterCalendrier',
   );
 }

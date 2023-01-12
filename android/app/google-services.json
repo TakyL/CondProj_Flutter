@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "578900044781",
+    "firebase_url": "https://flutterbddcondprj-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "flutterbddcondprj",
     "storage_bucket": "flutterbddcondprj.appspot.com"
   },
@@ -29,6 +30,13 @@
             {
               "client_id": "578900044781-qnuljocqejmhf751hvk1c05tivkl19gq.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "578900044781-t4dt622qb2pqdteeikgjqg685de49k6h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterCalendrier"
+              }
             }
           ]
         }
