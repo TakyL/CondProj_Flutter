@@ -7,7 +7,7 @@ class database_interface {
 
   void getDonneesByAttributs() async { }  //Fait un get en fonction d'un attribut ex:nom d'un user
 
-  //void postDonneees(Object o) async {} // Fait un post de l'objet (Utilisateurs/Evenements/Calendriers)
+  void postDonneees(Object o) async {} // Fait un post de l'objet (Utilisateurs/Evenements/Calendriers)
 }
 
 //∕ Test Employees db
@@ -37,4 +37,6 @@ class Emp implements database_interface {
    } 
 
     void getDonneesByAttributs() async { }
+
+    void postDonneees(Object o) async {}
 }
