@@ -95,7 +95,7 @@ class _Inter_EventState extends State<Inter_Event> {
                 DateTime? choix = await datePicker();
                 setState(() {
                   if (choix != null) {
-                    Ctrl1.text = DateFormat('yyyy-MM-dd').format(choix);
+                    Ctrl1.text = DateFormat('dd/MM/yyyy').format(choix);
                   }
                 });
               }),
