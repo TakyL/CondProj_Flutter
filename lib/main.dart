@@ -9,9 +9,11 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'int/fr.dart';
 import 'classes/priorité_class.dart';
+import 'classes/firebase_auth_services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_calendrier/db/firebase_options.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +22,15 @@ void main() async {
   );
   initializeDateFormatting().then((_) => runApp(const MyApp()));
   runApp(const MyApp());
+  final FirebaseAuthService _auth = FirebaseAuthService();
+  User? user =
+      await _auth.signInWithEmailAndPassword("hugodip@orange.fr", "hugodipa");
+  if (user != null) {
+    //successfull login
+    print("User successfully logged");
+  } else {
+    //unsuccessfull login
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -88,10 +99,8 @@ class _MyHomePageState extends State<MyHomePage> {
           db: ref); //Note pas sur que mettre un argument database soit un truc utile, on peut le faire localement à reflechir todo
       liantdemo.postDonneees(e);
     } else {
-      selectedevents[d] = [
-        Evenement.n(nom: e.nom)
-      ]; 
-            db_event liantdemo = db_event(
+      selectedevents[d] = [Evenement.n(nom: e.nom)];
+      db_event liantdemo = db_event(
           db: ref); //Note pas sur que mettre un argument database soit un truc utile, on peut le faire localement à reflechir todo
       liantdemo.postDonneees(e);
       debugPrint("AJOUT");
