@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_calendrier/db/database_evenement.dart';
 import 'package:flutter_calendrier/db/database_interface.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'inter_ajoutevent.dart';
+import 'view/inter_ajoutevent.dart';
 import 'classes/calendrier_class.dart';
 import 'classes/evenements_class.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -9,7 +10,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'int/fr.dart';
 import 'classes/priorité_class.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_calendrier/firebase_options.dart';
+import 'package:flutter_calendrier/db/firebase_options.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 void main() async {
@@ -80,14 +81,22 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void AjouteEventtocetteputaineliste(DateTime d, Evenement e) {
+    //Le callback à rename quand ça sera fini
     if (selectedevents[d] != null) {
-      selectedevents[d]?.add(e);
+      selectedevents[d]?.add(e); //Peut poser problème
+      db_event liantdemo = db_event(
+          db: ref); //Note pas sur que mettre un argument database soit un truc utile, on peut le faire localement à reflechir todo
+      liantdemo.postDonneees(e);
     } else {
       selectedevents[d] = [
-        Evenement(nom: e.nom)
-      ]; //Toute cette fonction est à refaire
+        Evenement.n(nom: e.nom)
+      ]; 
+            db_event liantdemo = db_event(
+          db: ref); //Note pas sur que mettre un argument database soit un truc utile, on peut le faire localement à reflechir todo
+      liantdemo.postDonneees(e);
       debugPrint("AJOUT");
     }
+
     //selectedevents[d].add(e);
   }
 
