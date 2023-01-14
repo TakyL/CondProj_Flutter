@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_calendrier/db/database_evenement.dart';
 import 'package:flutter_calendrier/db/database_interface.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'view/inter_ajoutevent.dart';
@@ -56,7 +57,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   FirebaseDatabase database = FirebaseDatabase.instance;
   DatabaseReference ref = FirebaseDatabase.instance.ref();
   void fas(DatabaseReference ref) async {
@@ -81,14 +81,22 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void AjouteEventtocetteputaineliste(DateTime d, Evenement e) {
+    //Le callback à rename quand ça sera fini
     if (selectedevents[d] != null) {
-      selectedevents[d]?.add(e);
+      selectedevents[d]?.add(e); //Peut poser problème
+      db_event liantdemo = db_event(
+          db: ref); //Note pas sur que mettre un argument database soit un truc utile, on peut le faire localement à reflechir todo
+      liantdemo.postDonneees(e);
     } else {
       selectedevents[d] = [
-        Evenement(nom: e.nom)
-      ]; //Toute cette fonction est à refaire
+        Evenement.n(nom: e.nom)
+      ]; 
+            db_event liantdemo = db_event(
+          db: ref); //Note pas sur que mettre un argument database soit un truc utile, on peut le faire localement à reflechir todo
+      liantdemo.postDonneees(e);
       debugPrint("AJOUT");
     }
+
     //selectedevents[d].add(e);
   }
 
