@@ -1,42 +1,46 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:ffi';
 
 import 'package:flutter/foundation.dart';
 
 class User {
-  int Id = 0;
-  var nom = "";
-  var mel = "";
-  var pseudo = "";
+  int Id;
+  String Nom;
+  String Mel;
+  String Pseudo;
 
-  int get User_Id {
-    return this.Id;
+  User(this.Id, this.Mel, this.Pseudo, this.Nom);
+
+  int get getId {
+    return Id;
   }
 
-  String get User_Nom {
-    return this.nom;
+  set setId(int _Id) {
+    Id = _Id;
   }
 
-  String get User_Mel {
-    return this.mel;
+  String get getNom {
+    return Nom;
   }
 
-  String get User_Pseudo {
-    return this.pseudo;
+  set setNom(String _Nom) {
+    Nom = _Nom;
   }
 
-  void set User_Id(var id) {
-    this.Id = id;
+  String get getMel {
+    return Mel;
   }
 
-  void set User_Nom(var nom) {
-    this.nom = nom;
+  set setMel(String _Mel) {
+    Mel = _Mel;
   }
 
-  void set User_Mel(var mel) {
-    this.mel = mel;
+  String get getPseudo {
+    return Pseudo;
   }
 
-  void set User_Pseudo(var pseudo) {
-    this.pseudo = pseudo;
+  set setPsedu(String _Pseudo) {
+    Pseudo = _Pseudo;
   }
 }
