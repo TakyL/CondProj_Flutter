@@ -15,7 +15,7 @@ class database_interface {
 class Emp implements database_interface {
    DatabaseReference r;
 
-  Emp(DatabaseReference ref, {required this.r});
+  Emp( {required this.r});
 
   void getDonnees() async {
     final snapshot = await r.child('employees/').get();
