@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void fas(DatabaseReference ref) async {
     db_event e = db_event(db: ref);
     e.getDonnees();
-    //e.getDonneesById(1);
+   // e.getDonneesById(3);
   }
 
   DateTime selectedday = DateTime.now();
@@ -101,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<Evenement> _getEventsFromDay(DateTime d) {
-    return selectedevents[d] ?? []; //TODO Comprendre ce que j'ai écrit
+    return selectedevents[d] ?? []; 
   }
 
   List<prioriete> listp = <prioriete>[];
@@ -180,9 +180,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 return isSameDay(selectedday, date);
               },
             ),
-            ..._getEventsFromDay(selectedday).map((Evenement e) => ListTile(
+            ..._getEventsFromDay(selectedday).map((Evenement e) => Container(
+              color: Colors.blueAccent, 
+              child:ListTile(
                   title: Text(e.nom),
-                )),
+                ))),
           ],
         ),
       ),

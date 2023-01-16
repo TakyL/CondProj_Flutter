@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_calendrier/classes/evenements_class.dart';
 
 import 'database_interface.dart';
@@ -15,12 +16,26 @@ class db_event implements database_interface {
   void getDonnees() async {
     final snapshot = await db.child(path).get();
     if (snapshot.exists) {
-      // print(snapshot.value);
+      Map m = Map.fromIterable(snapshot.value as List);
+      List<Evenement> liste = [];
+      m.forEach((key, value) {
+        liste.add(Evenement.convert(value));
+      });
 
-      Map<String, dynamic> a = (jsonDecode(jsonEncode((snapshot.value))));
+      print(liste.toString());
+
+      //  print(m.entries.iterator.current.value);
+      //var Map1 = Map<String,dynamic>.from(Map.fromIterable(snapshot.value as List).values.toList()[0]);
+
+      //   print((jsonDecode(jsonEncode(snapshot.value))));
+
+      //  print(Map<String, dynamic>.from(
+      //    Map.fromIterable(snapshot.value as List).keys.toList()[0]));
+      //Map<String, dynamic> a = jsonDecode(jsonEncode(snapshot.value));
       //print(a.entries.first.value);//key contient 2 , value contient le json
-      var u = Evenement.fromJson(a.entries.first.value);
-      print(u);
+      // print(a.entries.iterator.current.value);
+      //var u = Evenement.fromJson(a.entries.iterator.current.value);
+      //print(u);
     } else {
       print('No data available.');
     }
@@ -32,8 +47,13 @@ class db_event implements database_interface {
   }
 
   @override
-  void getDonneesById(int id) {
-    // TODO: implement getDonneesById
+  void getDonneesById(int id) async {
+    final snapshot = await db.child('events/$id').get();
+    if (snapshot.exists) {
+      print(snapshot.value);
+    } else {
+      print('No data available.');
+    }
   }
 
   @override
@@ -56,7 +76,8 @@ class db_event implements database_interface {
           "Objet saisie à la base de données n'est pas un objet de type Evenement");
     }
   }
-      //Retourne le nb d'element dans la database
+
+  //Retourne le nb d'element dans la database
   Future<int> CountElement() async {
     final snapshot = await db.child(path).get();
     int nb = 0;
@@ -64,5 +85,11 @@ class db_event implements database_interface {
       nb = snapshot.children.length;
     }
     return nb;
+  }
+  
+  @override
+  Future<List<Object>> test() {
+    // TODO: implement test
+    throw UnimplementedError();
   }
 }

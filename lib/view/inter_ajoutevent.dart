@@ -51,7 +51,7 @@ class _Inter_EventState extends State<Inter_Event> {
       widget.callback(
           widget.time,
           Evenement(
-              id: 1,
+              id: 0,//faire un fetch ici
               nom: _CtrlNom.text,
               auteur: "TEST",
               date_debut: _CtrlDateD.text,
@@ -59,7 +59,7 @@ class _Inter_EventState extends State<Inter_Event> {
               heure_debut:
                   _CtrlHeureD.text,
               heure_fin:
-                 _CtrlDateF.text,
+                 _CtrlHeureF.text,
               description: _CtrlDsc.text,
               prio: dropdownValue));
       Navigator.pop(context);
