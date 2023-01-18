@@ -22,7 +22,7 @@ class db_event implements database_interface {
         liste.add(Evenement.convert(value));
       });
 
-      print(liste.toString());
+      print(liste.toString());//TODO utiliser un iterator pour l'affichage des evenements => utilisation du DP iterator
 
       //  print(m.entries.iterator.current.value);
       //var Map1 = Map<String,dynamic>.from(Map.fromIterable(snapshot.value as List).values.toList()[0]);
