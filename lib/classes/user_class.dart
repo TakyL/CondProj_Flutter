@@ -1,8 +1,6 @@
-import 'dart:ffi';
-
 import 'package:flutter/foundation.dart';
 
-class User {
+class UserClass {
   int Id = 0;
   var nom = "";
   var mel = "";

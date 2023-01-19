@@ -14,6 +14,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_calendrier/db/firebase_options.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_calendrier/view/inter_registeruser.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +23,7 @@ void main() async {
   );
   initializeDateFormatting().then((_) => runApp(const MyApp()));
   runApp(const MyApp());
+
   final FirebaseAuthService _auth = FirebaseAuthService();
   User? user =
       await _auth.signInWithEmailAndPassword("hugodip@orange.fr", "hugodipa");
@@ -53,7 +55,7 @@ class MyApp extends StatelessWidget {
     const Locale('fr')
   ]
   ,*/
-      home: const MyHomePage(title: 'PlanIf'),
+      home: inter_registeruser(), //MyHomePage(title: 'PlanIf'),
     );
   }
 }
@@ -110,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<Evenement> _getEventsFromDay(DateTime d) {
-    return selectedevents[d] ?? []; //TODO Comprendre ce que j'ai écrit
+    return selectedevents[d] ?? [];
   }
 
   List<prioriete> listp = <prioriete>[];
