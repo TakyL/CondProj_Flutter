@@ -7,14 +7,17 @@ import 'package:flutter_calendrier/classes/evenements_class.dart';
 import 'database_interface.dart';
 
 class db_event implements database_interface {
-  DatabaseReference db;
   String path = "events/";
 
-  db_event({required this.db});
+  DatabaseReference connexion_db() {
+    FirebaseDatabase database = FirebaseDatabase.instance;
+    DatabaseReference ref = FirebaseDatabase.instance.ref();
+    return ref;
+  }
 
   @override
   void getDonnees() async {
-    final snapshot = await db.child(path).get();
+    final snapshot = await connexion_db().child(path).get();
     if (snapshot.exists) {
       Map m = Map.fromIterable(snapshot.value as List);
       List<Evenement> liste = [];
@@ -22,7 +25,8 @@ class db_event implements database_interface {
         liste.add(Evenement.convert(value));
       });
 
-      print(liste.toString());//TODO utiliser un iterator pour l'affichage des evenements => utilisation du DP iterator
+      print(liste
+          .toString()); //TODO utiliser un iterator pour l'affichage des evenements => utilisation du DP iterator
 
       //  print(m.entries.iterator.current.value);
       //var Map1 = Map<String,dynamic>.from(Map.fromIterable(snapshot.value as List).values.toList()[0]);
@@ -48,7 +52,7 @@ class db_event implements database_interface {
 
   @override
   void getDonneesById(int id) async {
-    final snapshot = await db.child('events/$id').get();
+    final snapshot = await connexion_db().child('events/$id').get();
     if (snapshot.exists) {
       print(snapshot.value);
     } else {
@@ -59,8 +63,9 @@ class db_event implements database_interface {
   @override
   void postDonneees(Object o) async {
     if (o is Evenement) {
-      db = FirebaseDatabase.instance.ref(path + '${o.id}');
-
+      DatabaseReference db = FirebaseDatabase.instance.ref(path + '${o.id}');
+      //DatabseReference db2 = FirebaseDatabase.instance.ref(/prio_event + '${o.id}')
+      //await db2.set(truc couleur)
       await db.set({
         "name": o.nom,
         "start_date": o.date_debut,
@@ -69,7 +74,7 @@ class db_event implements database_interface {
         "end_hour": o.heure_fin,
         "author": o.auteur,
         "description": o.description,
-        //priorite non traitée pour le moment
+        //priorite non traitée pour le moment faut faire call à
       });
     } else {
       throw const FormatException(
@@ -79,14 +84,14 @@ class db_event implements database_interface {
 
   //Retourne le nb d'element dans la database
   Future<int> CountElement() async {
-    final snapshot = await db.child(path).get();
+    final snapshot = await connexion_db().child(path).get();
     int nb = 0;
     if (snapshot.exists) {
       nb = snapshot.children.length;
     }
     return nb;
   }
-  
+
   @override
   Future<List<Object>> test() {
     // TODO: implement test

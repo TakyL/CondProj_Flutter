@@ -41,4 +41,21 @@ class db_prio implements database_interface {
   void postDonneees(Object o) {
     // TODO: implement postDonneees
   }
+
+  Future<List<prioriete>>
+      FetchFromDb() async //Fonction temporaire qui pourrait être getDonnées sauf que problème d'implementations donc on passe par une fonction qui fait appel la même chose sauf que ça retourne bien list, je ferai le fix plus tard
+  {
+    DatabaseReference db = connexion_db();
+    final snapshot = await db.child(path).get();
+    List<prioriete> liste = [];
+    if (snapshot.exists) {
+      Map m = Map.fromIterable(snapshot.value as List);
+
+      m.forEach((key, value) {
+        liste.add(prioriete.convert(value));
+      });
+    }
+
+    return liste;
+  }
 }
