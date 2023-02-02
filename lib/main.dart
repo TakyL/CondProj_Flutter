@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
   FirebaseDatabase database = FirebaseDatabase.instance;
   DatabaseReference ref = FirebaseDatabase.instance.ref();
   void fas(DatabaseReference ref) async {
-    db_event e = db_event(db: ref);
+    db_event e = db_event();
     e.getDonnees();
    // e.getDonneesById(3);
   }
@@ -84,15 +84,13 @@ class _MyHomePageState extends State<MyHomePage> {
     //Le callback à rename quand ça sera fini
     if (selectedevents[d] != null) {
       selectedevents[d]?.add(e); //Peut poser problème
-      db_event liantdemo = db_event(
-          db: ref); //Note pas sur que mettre un argument database soit un truc utile, on peut le faire localement à reflechir todo
+      db_event liantdemo = db_event(); 
       liantdemo.postDonneees(e);
     } else {
       selectedevents[d] = [
         Evenement.n(nom: e.nom)
       ]; 
-            db_event liantdemo = db_event(
-          db: ref); //Note pas sur que mettre un argument database soit un truc utile, on peut le faire localement à reflechir todo
+            db_event liantdemo = db_event();
       liantdemo.postDonneees(e);
       debugPrint("AJOUT");
     }
