@@ -73,9 +73,9 @@ class _MyHomePageState extends State<MyHomePage> {
   FirebaseDatabase database = FirebaseDatabase.instance;
   DatabaseReference ref = FirebaseDatabase.instance.ref();
   void fas(DatabaseReference ref) async {
-    Emp e = Emp(ref, r: ref);
+    db_event e = db_event();
     e.getDonnees();
-    e.getDonneesById(1);
+   // e.getDonneesById(3);
   }
 
   DateTime selectedday = DateTime.now();
@@ -97,13 +97,13 @@ class _MyHomePageState extends State<MyHomePage> {
     //Le callback à rename quand ça sera fini
     if (selectedevents[d] != null) {
       selectedevents[d]?.add(e); //Peut poser problème
-      db_event liantdemo = db_event(
-          db: ref); //Note pas sur que mettre un argument database soit un truc utile, on peut le faire localement à reflechir todo
+      db_event liantdemo = db_event(); 
       liantdemo.postDonneees(e);
     } else {
       selectedevents[d] = [Evenement.n(nom: e.nom)];
       db_event liantdemo = db_event(
           db: ref); //Note pas sur que mettre un argument database soit un truc utile, on peut le faire localement à reflechir todo
+
       liantdemo.postDonneees(e);
       debugPrint("AJOUT");
     }
@@ -112,7 +112,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<Evenement> _getEventsFromDay(DateTime d) {
+
     return selectedevents[d] ?? [];
+
   }
 
   List<prioriete> listp = <prioriete>[];
@@ -191,9 +193,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 return isSameDay(selectedday, date);
               },
             ),
-            ..._getEventsFromDay(selectedday).map((Evenement e) => ListTile(
+            ..._getEventsFromDay(selectedday).map((Evenement e) => Container(
+              color: Colors.blueAccent, 
+              child:ListTile(
                   title: Text(e.nom),
-                )),
+                ))),
           ],
         ),
       ),
