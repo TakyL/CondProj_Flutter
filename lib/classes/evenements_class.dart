@@ -27,8 +27,39 @@ class Evenement {
   Evenement.n(
       {required this.nom}); //FIXME Bricolage poiur l'affichage dans la vue
 
+  Evenement.json(
+      {required this.nom,
+      required this.auteur,
+      required this.date_debut,
+      required this.date_fin,
+      required this.heure_debut,
+      required this.heure_fin,
+      required this.description}); //Constructeur pour json temp
+
   @override
   String toString() {
     return nom;
+  }
+
+  factory Evenement.fromJson(Map<String, dynamic> json) {
+    return Evenement.json(
+        nom: json['name'] as String,
+        auteur: json['author'] as String,
+        date_debut: json['start_date'] as String,
+        date_fin: json['end_date'] as String,
+        heure_debut: json['start_hour'] as String,
+        heure_fin: json['end_hour'] as String,
+        description: json['description'] as String);
+  }
+
+  factory Evenement.convert(dynamic value) {
+    return Evenement.json(
+        nom: value['name'] as String,
+        auteur: value['author'] as String,
+        date_debut: value['start_date'] as String,
+        date_fin: value['end_date'] as String,
+        heure_debut: value['start_hour'] as String,
+        heure_fin: value['end_hour'] as String,
+        description: value['description'] as String);
   }
 }
