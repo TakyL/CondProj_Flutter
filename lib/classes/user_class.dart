@@ -1,6 +1,7 @@
+
 // ignore_for_file: non_constant_identifier_names
 
-import 'dart:ffi';
+// import 'dart:ffi';
 
 import 'package:flutter/foundation.dart';
 
@@ -11,6 +12,7 @@ class User {
   String Pseudo;
 
   User(this.Id, this.Mel, this.Pseudo, this.Nom);
+
 
   int get getId {
     return Id;

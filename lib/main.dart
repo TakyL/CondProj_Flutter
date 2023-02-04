@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_calendrier/db/database_evenement.dart';
 import 'package:flutter_calendrier/db/database_interface.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'view/inter_ajoutevent.dart';
@@ -8,9 +9,12 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'int/fr.dart';
 import 'classes/priorité_class.dart';
+import 'classes/firebase_auth_services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_calendrier/db/firebase_options.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_calendrier/view/inter_registeruser.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +23,16 @@ void main() async {
   );
   initializeDateFormatting().then((_) => runApp(const MyApp()));
   runApp(const MyApp());
+
+  final FirebaseAuthService _auth = FirebaseAuthService();
+  User? user =
+      await _auth.signInWithEmailAndPassword("hugodip@orange.fr", "hugodipa");
+  if (user != null) {
+    //successfull login
+    print("User successfully logged");
+  } else {
+    //unsuccessfull login
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -41,7 +55,7 @@ class MyApp extends StatelessWidget {
     const Locale('fr')
   ]
   ,*/
-      home: const MyHomePage(title: 'PlanIf'),
+      home: inter_registeruser(), //MyHomePage(title: 'PlanIf'),
     );
   }
 }
@@ -56,13 +70,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   FirebaseDatabase database = FirebaseDatabase.instance;
   DatabaseReference ref = FirebaseDatabase.instance.ref();
   void fas(DatabaseReference ref) async {
-    Emp e = Emp(ref, r: ref);
+    db_event e = db_event();
     e.getDonnees();
-    e.getDonneesById(1);
+   // e.getDonneesById(3);
   }
 
   DateTime selectedday = DateTime.now();
@@ -81,19 +94,27 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void AjouteEventtocetteputaineliste(DateTime d, Evenement e) {
+    //Le callback à rename quand ça sera fini
     if (selectedevents[d] != null) {
-      selectedevents[d]?.add(e);
+      selectedevents[d]?.add(e); //Peut poser problème
+      db_event liantdemo = db_event(); 
+      liantdemo.postDonneees(e);
     } else {
-      selectedevents[d] = [
-        Evenement(nom: e.nom)
-      ]; //Toute cette fonction est à refaire
+      selectedevents[d] = [Evenement.n(nom: e.nom)];
+      db_event liantdemo = db_event(
+          db: ref); //Note pas sur que mettre un argument database soit un truc utile, on peut le faire localement à reflechir todo
+
+      liantdemo.postDonneees(e);
       debugPrint("AJOUT");
     }
+
     //selectedevents[d].add(e);
   }
 
   List<Evenement> _getEventsFromDay(DateTime d) {
-    return selectedevents[d] ?? []; //TODO Comprendre ce que j'ai écrit
+
+    return selectedevents[d] ?? [];
+
   }
 
   List<prioriete> listp = <prioriete>[];
@@ -172,9 +193,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 return isSameDay(selectedday, date);
               },
             ),
-            ..._getEventsFromDay(selectedday).map((Evenement e) => ListTile(
+            ..._getEventsFromDay(selectedday).map((Evenement e) => Container(
+              color: Colors.blueAccent, 
+              child:ListTile(
                   title: Text(e.nom),
-                )),
+                ))),
           ],
         ),
       ),
