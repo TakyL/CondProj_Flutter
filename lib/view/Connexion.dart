@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-
+///
+///
+///
 void main(List<String> args) {
   runApp(const ConnexionApp());
 }
@@ -28,7 +30,7 @@ class _RootPageState extends State<RootPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Inscription'),
+        title: const Text('Connexion'),
       ),
       body: Container(
         width: MediaQuery.of(context).size.width, // Full Width of Screen
@@ -45,52 +47,32 @@ class _RootPageState extends State<RootPage> {
                 alignment: Alignment.center,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 500.0,
               child: TextField(
                 decoration: InputDecoration(
-                    hintText: "Prénom", icon: const Icon(Icons.man_2_outlined)),
-              ),
+                    hintText: "Identifiant",
+                  //  icon: const Icon(Icons.man_2_outlined)),
+              )),
             ),
-            SizedBox(
+            const SizedBox(
               width: 500.0,
               child: TextField(
                 decoration: InputDecoration(
-                    hintText: "Nom", icon: const Icon(Icons.man_2_outlined)),
-              ),
-            ),
-            SizedBox(
-              width: 500.0,
-              child: TextField(
-                decoration: InputDecoration(
-                    hintText: "Courriel", icon: const Icon(Icons.mail)),
-              ),
-            ),
-            SizedBox(
-              width: 500.0,
-              child: TextField(
-                decoration: InputDecoration(
-                    hintText: "Pseudonyme",
-                    icon: const Icon(Icons.man_4_outlined)),
-              ),
-            ),
-            SizedBox(
-              width: 500.0,
-              child: TextField(
-                decoration: InputDecoration(
-                    hintText: "Mot de passe", icon: const Icon(Icons.password)),
+                    hintText: "Mot de passe", icon: Icon(Icons.password)
+                    ),
               ),
             ),
             FloatingActionButton.extended(
               onPressed: () {},
               icon: const Icon(Icons.next_plan_rounded),
-              label: const Text("S'inscrire"),
+              label: const Text("Se connecter"),
             ),
             InkWell(
               onTap: () {
                 // Ce qui se passe lorsque le texte est cliqué
               },
-              child: const Text("Vous avez deja un compte ? Se connecter."),
+              child: const Text("Inscription"),
             ),
           ],
         ),

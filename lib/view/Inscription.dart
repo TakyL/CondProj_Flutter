@@ -28,7 +28,7 @@ class _RootPageState extends State<RootPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Connexion'),
+        title: const Text('Inscription'),
       ),
       body: Container(
         width: MediaQuery.of(context).size.width, // Full Width of Screen
@@ -45,31 +45,52 @@ class _RootPageState extends State<RootPage> {
                 alignment: Alignment.center,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 500.0,
               child: TextField(
                 decoration: InputDecoration(
-                    hintText: "Identifiant",
-                    icon: const Icon(Icons.man_2_outlined)),
+                    hintText: "Prénom"),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 500.0,
               child: TextField(
                 decoration: InputDecoration(
-                    hintText: "Mot de passe", icon: const Icon(Icons.password)),
+                    hintText: "Nom"),
+              ),
+            ),
+            const SizedBox(
+              width: 500.0,
+              child: TextField(
+                decoration: InputDecoration(
+                    hintText: "Courriel", icon: const Icon(Icons.mail)),
+              ),
+            ),
+            const SizedBox(
+              width: 500.0,
+              child: TextField(
+                decoration: InputDecoration(
+                    hintText: "Pseudonyme",
+                    ),
+              ),
+            ),
+            const SizedBox(
+              width: 500.0,
+              child: TextField(
+                decoration: InputDecoration(
+                    hintText: "Mot de passe", icon: Icon(Icons.password)),
               ),
             ),
             FloatingActionButton.extended(
               onPressed: () {},
               icon: const Icon(Icons.next_plan_rounded),
-              label: const Text("Se connecter"),
+              label: const Text("S'inscrire"),
             ),
             InkWell(
               onTap: () {
                 // Ce qui se passe lorsque le texte est cliqué
               },
-              child: const Text("Inscription"),
+              child: const Text("Vous avez deja un compte ? Se connecter."),
             ),
           ],
         ),

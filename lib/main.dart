@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
     const Locale('fr')
   ]
   ,*/
-      home: inter_registeruser(), //MyHomePage(title: 'PlanIf'),
+      home: const MyHomePage(title: 'PlanIf'),
     );
   }
 }
@@ -101,8 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
       liantdemo.postDonneees(e);
     } else {
       selectedevents[d] = [Evenement.n(nom: e.nom)];
-      db_event liantdemo = db_event(
-          db: ref); //Note pas sur que mettre un argument database soit un truc utile, on peut le faire localement à reflechir todo
+      db_event liantdemo = db_event(); 
 
       liantdemo.postDonneees(e);
       debugPrint("AJOUT");
