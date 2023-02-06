@@ -4,7 +4,6 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import '../classes/evenements_class.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../viewmodel/Widget_interface_ajoutevent/viewmodel_interfaceajoutevent.dart';
 
