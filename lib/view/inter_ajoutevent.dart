@@ -39,6 +39,17 @@ class _Inter_EventState extends State<Inter_Event> {
     //debugPrint(listp.toString());
   }
 
+  //Permet de corirger le format de la date
+  String formatTimeString(String timeString) {
+  List<String> parts = timeString.split(":");
+  if (int.parse(parts[1]) < 10) {
+    return "${parts[0]}h0${parts[1]}";
+  } else {
+    return timeString;
+  }
+}
+
+
   @override
   void dispose() {
     _CtrlNom.dispose();
@@ -132,7 +143,7 @@ class _Inter_EventState extends State<Inter_Event> {
                   TimeOfDay? choix = await hourPicker();
                   setState(() {
                     if (choix != null) {
-                      Ctrl2.text = "${choix.hour}:${choix.minute}";
+                      Ctrl2.text = formatTimeString("${choix.hour}:${choix.minute}");
                     }
                   });
                 }),
