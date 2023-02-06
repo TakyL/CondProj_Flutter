@@ -97,7 +97,7 @@ class _Inter_EventState extends State<Inter_Event> {
         alignment: Alignment.topLeft,
         child: SizedBox(
           width:
-              200, //A adapater en fonction de la taille de l'écran / 200px pour les mobiles
+               MediaQuery.of(context).size.width / 2-20, 
           child: TextFormField(
               controller: Ctrl1,
               decoration: InputDecoration(
@@ -119,7 +119,7 @@ class _Inter_EventState extends State<Inter_Event> {
       Align(
           alignment: Alignment.topLeft,
           child: SizedBox(
-            width: 200,
+            width:  MediaQuery.of(context).size.width / 2-20,
             child: TextFormField(
                 controller: Ctrl2, //editing controller of this TextField
                 decoration: InputDecoration(
