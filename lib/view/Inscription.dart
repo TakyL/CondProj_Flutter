@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 void main(List<String> args) {
-  runApp(const ConnexionApp());
+  runApp(const ConnexionApp2());
 }
 
-class ConnexionApp extends StatelessWidget {
-  const ConnexionApp({super.key});
+class ConnexionApp2 extends StatelessWidget {
+  const ConnexionApp2({super.key});
 
   @override
   Widget build(BuildContext context) {

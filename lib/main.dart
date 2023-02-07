@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_calendrier/view/Connexion.dart';
 import 'package:flutter_calendrier/db/database_evenement.dart';
 import 'package:flutter_calendrier/db/database_interface.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -15,6 +16,7 @@ import 'package:flutter_calendrier/db/firebase_options.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_calendrier/view/inter_registeruser.dart';
+import 'package:flutter_calendrier/view/Inscription.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,7 +57,7 @@ class MyApp extends StatelessWidget {
     const Locale('fr')
   ]
   ,*/
-      home: const MyHomePage(title: 'PlanIf'),
+      home: const MyHomePage(title: 'PlanIf'),//ConnexionApp2()
     );
   }
 }
