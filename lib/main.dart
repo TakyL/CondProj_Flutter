@@ -75,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void fas(DatabaseReference ref) async {
     db_event e = db_event();
     e.getDonnees();
-   // e.getDonneesById(3);
+    // e.getDonneesById(3);
   }
 
   DateTime selectedday = DateTime.now();
@@ -97,11 +97,11 @@ class _MyHomePageState extends State<MyHomePage> {
     //Le callback à rename quand ça sera fini
     if (selectedevents[d] != null) {
       selectedevents[d]?.add(e); //Peut poser problème
-      db_event liantdemo = db_event(); 
+      db_event liantdemo = db_event();
       liantdemo.postDonneees(e);
     } else {
       selectedevents[d] = [Evenement.n(nom: e.nom)];
-      db_event liantdemo = db_event(); 
+      db_event liantdemo = db_event();
 
       liantdemo.postDonneees(e);
       debugPrint("AJOUT");
@@ -111,9 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<Evenement> _getEventsFromDay(DateTime d) {
-
     return selectedevents[d] ?? [];
-
   }
 
   List<prioriete> listp = <prioriete>[];
@@ -193,10 +191,19 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ..._getEventsFromDay(selectedday).map((Evenement e) => Container(
-              color: Colors.blueAccent, 
-              child:ListTile(
+                color: Colors.blueAccent,
+                child: ListTile(
                   title: Text(e.nom),
                 ))),
+            ElevatedButton(
+              child: Text("Show Register Page"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => inter_registeruser()),
+                );
+              },
+            ),
           ],
         ),
       ),
