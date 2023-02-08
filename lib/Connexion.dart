@@ -28,7 +28,7 @@ class _RootPageState extends State<RootPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Connexion'),
+        title: const Text('CONNEXION'),
       ),
       body: Container(
         width: MediaQuery.of(context).size.width, // Full Width of Screen
