@@ -1,30 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_calendrier/view/inter_registeruser.dart';
+import 'Connexion.dart';
+import 'classes/firebase_auth_services.dart';
+import 'classes/user_class.dart';
 
 void main(List<String> args) {
-  runApp(const ConnexionApp());
+  runApp(const InscriptionApp());
 }
 
-class ConnexionApp extends StatelessWidget {
-  const ConnexionApp({super.key});
+class InscriptionApp extends StatelessWidget {
+  const InscriptionApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(primarySwatch: Colors.blueGrey),
-      home: const RootPage(),
+      home: const InscriptionPage(),
     );
   }
 }
 
-class RootPage extends StatefulWidget {
-  const RootPage({super.key});
+class InscriptionPage extends StatefulWidget {
+  const InscriptionPage({super.key});
 
   @override
-  State<RootPage> createState() => _RootPageState();
+  State<InscriptionPage> createState() => _InscriptionPage();
 }
 
-class _RootPageState extends State<RootPage> {
+class _InscriptionPage extends State<InscriptionPage> {
   @override
+  final passwordController = TextEditingController();
+  final passwordverifController = TextEditingController();
+  final emailController = TextEditingController();
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -47,48 +54,67 @@ class _RootPageState extends State<RootPage> {
             ),
             SizedBox(
               width: 500.0,
-              child: TextField(
-                decoration: InputDecoration(
-                    hintText: "Prénom", icon: const Icon(Icons.man_2_outlined)),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                    hintText: "Prénom", icon: Icon(Icons.man_2_outlined)),
               ),
             ),
             SizedBox(
               width: 500.0,
-              child: TextField(
-                decoration: InputDecoration(
-                    hintText: "Nom", icon: const Icon(Icons.man_2_outlined)),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                    hintText: "Nom", icon: Icon(Icons.man_2_outlined)),
               ),
             ),
             SizedBox(
               width: 500.0,
-              child: TextField(
-                decoration: InputDecoration(
-                    hintText: "Courriel", icon: const Icon(Icons.mail)),
+              child: TextFormField(
+                controller: emailController,
+                decoration: const InputDecoration(
+                    hintText: "Courriel", icon: Icon(Icons.mail)),
               ),
             ),
             SizedBox(
               width: 500.0,
-              child: TextField(
-                decoration: InputDecoration(
-                    hintText: "Pseudonyme",
-                    icon: const Icon(Icons.man_4_outlined)),
+              child: TextFormField(
+                controller: passwordController,
+                decoration: const InputDecoration(
+                    hintText: "Mot de passe", icon: Icon(Icons.lock)),
               ),
             ),
             SizedBox(
               width: 500.0,
-              child: TextField(
-                decoration: InputDecoration(
-                    hintText: "Mot de passe", icon: const Icon(Icons.password)),
+              child: TextFormField(
+                controller: passwordverifController,
+                decoration: const InputDecoration(
+                    hintText: "Mot de passe vérifiation",
+                    icon: Icon(Icons.lock)),
               ),
             ),
             FloatingActionButton.extended(
-              onPressed: () {},
+              onPressed: () async {
+                final FirebaseAuthService _auth = FirebaseAuthService();
+
+                if (passwordController.text == passwordverifController.text) {
+                  User? user = (await _auth.signInWithEmailAndPassword(
+                      emailController.text, passwordController.text)) as User?;
+                  if (user != null) {
+                    //successfull login
+                  } else {
+                    //unsuccessfull login
+                  }
+                }
+              },
               icon: const Icon(Icons.next_plan_rounded),
               label: const Text("S'inscrire"),
             ),
             InkWell(
               onTap: () {
-                // Ce qui se passe lorsque le texte est cliqué
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ConnexionPage()),
+                );
               },
               child: const Text("Vous avez deja un compte ? Se connecter."),
             ),
