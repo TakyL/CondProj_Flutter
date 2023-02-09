@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_calendrier/db/database_evenement.dart';
 import 'package:flutter_calendrier/db/database_interface.dart';
+import 'package:flutter_calendrier/view/Connexion.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'view/inter_ajoutevent.dart';
 import 'classes/calendrier_class.dart';
@@ -146,73 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            TableCalendar(
-              locale: 'fr_FR',
-              focusedDay: focusedday,
-              firstDay: DateTime(2020),
-              lastDay: DateTime(2050),
-              calendarFormat: format,
-              onFormatChanged: (CalendarFormat _format) {
-                setState(() {
-                  format = _format;
-                });
-              },
-              onDaySelected: (DateTime selectedDay, DateTime focusedDay) {
-                setState(() {
-                  selectedday = selectedDay;
-                  focusedday = focusedDay;
-                });
-              },
-              availableCalendarFormats: const {
-                CalendarFormat.month: 'Mois',
-                CalendarFormat.twoWeeks: '2 semaines',
-                CalendarFormat.week: 'Semaine',
-              },
-              weekNumbersVisible: true,
-              startingDayOfWeek: StartingDayOfWeek.monday,
-              // const [DateTime.saturday, DateTime.sunday]
-              calendarStyle: const CalendarStyle(
-                  isTodayHighlighted: true,
-                  selectedDecoration: BoxDecoration(
-                    color: Colors.red,
-                    shape: BoxShape.rectangle,
-                  ),
-                  selectedTextStyle: const TextStyle(color: Colors.white),
-                  todayDecoration: BoxDecoration(
-                    color: Colors.lightBlueAccent,
-                    shape: BoxShape.rectangle,
-                  )),
-              selectedDayPredicate: (DateTime date) {
-                return isSameDay(selectedday, date);
-              },
-            ),
-            ..._getEventsFromDay(selectedday).map((Evenement e) => Container(
-                color: Colors.blueAccent,
-                child: ListTile(
-                  title: Text(e.nom),
-                ))),
-            ElevatedButton(
-              child: Text("Show Register Page"),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => inter_registeruser()),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        //Ajouter un evenement au calendrier
-        onPressed: menuajoutevent,
-        tooltip: 'Ajouter un évenement',
-        child: const Icon(Icons.add),
-      ),
+      body: ConnexionApp(),
     );
   }
 }

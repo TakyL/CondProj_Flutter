@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-///
-///
-///
+import 'package:flutter_calendrier/view/Inscription.dart';
+import 'package:flutter_calendrier/view/inter_registeruser.dart';
+
 void main(List<String> args) {
   runApp(const ConnexionApp());
 }
@@ -34,8 +34,7 @@ class _RootPageState extends State<RootPage> {
       ),
       body: Container(
         width: MediaQuery.of(context).size.width, // Full Width of Screen
-        height: 800.0, // Desired Height
-
+        height: MediaQuery.of(context).size.height, // Full Height of Screen
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -43,24 +42,24 @@ class _RootPageState extends State<RootPage> {
               width: 200.0,
               height: 200.0,
               child: Image.asset(
-                'lib/assets/logo.png',
+                'assets/images/planif.png',
                 alignment: Alignment.center,
               ),
             ),
             const SizedBox(
-              width: 500.0,
-              child: TextField(
-                decoration: InputDecoration(
-                    hintText: "Identifiant",
-                  //  icon: const Icon(Icons.man_2_outlined)),
-              )),
-            ),
+                width: 500.0,
+                child: TextField(
+                  decoration: InputDecoration(
+                      hintText: "Identifiant", icon: Icon(Icons.person)),
+                )),
             const SizedBox(
               width: 500.0,
               child: TextField(
+                obscureText: true,
+                enableSuggestions: false,
+                autocorrect: false,
                 decoration: InputDecoration(
-                    hintText: "Mot de passe", icon: Icon(Icons.password)
-                    ),
+                    hintText: "Mot de passe", icon: Icon(Icons.password)),
               ),
             ),
             FloatingActionButton.extended(
@@ -70,9 +69,12 @@ class _RootPageState extends State<RootPage> {
             ),
             InkWell(
               onTap: () {
-                // Ce qui se passe lorsque le texte est cliqué
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => inter_registeruser()),
+                );
               },
-              child: const Text("Inscription"),
+              child: const Text("Vous n'avez pas de compte ? S'inscrire"),
             ),
           ],
         ),
