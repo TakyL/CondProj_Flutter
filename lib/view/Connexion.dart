@@ -1,5 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_calendrier/view/Inscription.dart';
+import 'package:flutter_calendrier/classes/calendrier_class.dart';
+import 'package:flutter_calendrier/main.dart';
+import 'package:flutter_calendrier/view/inter_registeruser.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_calendrier/classes/firebase_auth_services.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_calendrier/db/firebase_options.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_calendrier/view/inter_registeruser.dart';
 
 void main(List<String> args) {
@@ -26,6 +35,10 @@ class RootPage extends StatefulWidget {
 }
 
 class _RootPageState extends State<RootPage> {
+  final _formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,48 +48,71 @@ class _RootPageState extends State<RootPage> {
       body: Container(
         width: MediaQuery.of(context).size.width, // Full Width of Screen
         height: MediaQuery.of(context).size.height, // Full Height of Screen
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: 200.0,
-              height: 200.0,
-              child: Image.asset(
-                'assets/images/planif.png',
-                alignment: Alignment.center,
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 200.0,
+                height: 200.0,
+                child: Image.asset(
+                  'assets/images/planif.png',
+                  alignment: Alignment.center,
+                ),
               ),
-            ),
-            const SizedBox(
+              SizedBox(
+                  width: 500.0,
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                        hintText: "E-Mail", icon: Icon(Icons.person)),
+                    controller: emailController,
+                  )),
+              SizedBox(
                 width: 500.0,
-                child: TextField(
+                child: TextFormField(
+                  obscureText: true,
+                  enableSuggestions: false,
+                  autocorrect: false,
                   decoration: InputDecoration(
-                      hintText: "Identifiant", icon: Icon(Icons.person)),
-                )),
-            const SizedBox(
-              width: 500.0,
-              child: TextField(
-                obscureText: true,
-                enableSuggestions: false,
-                autocorrect: false,
-                decoration: InputDecoration(
-                    hintText: "Mot de passe", icon: Icon(Icons.password)),
+                      hintText: "Mot de passe", icon: Icon(Icons.password)),
+                  controller: passwordController,
+                ),
               ),
-            ),
-            FloatingActionButton.extended(
-              onPressed: () {},
-              icon: const Icon(Icons.next_plan_rounded),
-              label: const Text("Se connecter"),
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => inter_registeruser()),
-                );
-              },
-              child: const Text("Vous n'avez pas de compte ? S'inscrire"),
-            ),
-          ],
+              FloatingActionButton.extended(
+                onPressed: () async {
+                  final FirebaseAuthService _auth = FirebaseAuthService();
+                  User? user = await _auth.signInWithEmailAndPassword(
+                      emailController.text, passwordController.text);
+                  if (user != null) {
+                    //successfull login
+                    print("User successfully logged");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              MyHomePage(title: 'Calendrier')),
+                    );
+                  } else {
+                    //unsuccessfull login
+                    print("User non successfully logged");
+                  }
+                },
+                icon: const Icon(Icons.next_plan_rounded),
+                label: const Text("Se connecter"),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => inter_registeruser()),
+                  );
+                },
+                child: const Text("Vous n'avez pas de compte ? S'inscrire"),
+              ),
+            ],
+          ),
         ),
       ),
     );

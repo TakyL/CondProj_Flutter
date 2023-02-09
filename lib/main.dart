@@ -24,16 +24,6 @@ void main() async {
   );
   initializeDateFormatting().then((_) => runApp(const MyApp()));
   runApp(const MyApp());
-
-  final FirebaseAuthService _auth = FirebaseAuthService();
-  User? user =
-      await _auth.signInWithEmailAndPassword("hugodip@orange.fr", "hugodipa");
-  if (user != null) {
-    //successfull login
-    print("User successfully logged");
-  } else {
-    //unsuccessfull login
-  }
 }
 
 class MyApp extends StatelessWidget {

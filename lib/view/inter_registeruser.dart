@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calendrier/classes/user_class.dart';
 import 'package:flutter_calendrier/classes/firebase_auth_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_calendrier/view/Connexion.dart';
 
 class inter_registeruser extends StatefulWidget {
   @override
@@ -23,6 +24,10 @@ class _inter_registeruser extends State<inter_registeruser> {
       password: password,
     );
     print("User created: " + email);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ConnexionApp()),
+    );
     return authResult;
   }
 
@@ -38,9 +43,9 @@ class _inter_registeruser extends State<inter_registeruser> {
   }
 
   String? validatePassword(String value) {
-    if (value.length < 8) {
-      print("Password must be at least 8 characters");
-      return "Password must be at least 8 characters";
+    if (value.length < 6) {
+      print("Password must be at least 6 characters");
+      return "Password must be at least 6 characters";
     }
     return null;
   }
