@@ -29,7 +29,7 @@ void main() async {
 
   final FirebaseAuthService _auth = FirebaseAuthService();
   User? user =
-      await _auth.signInWithEmailAndPassword("hugodip@orange.fr", "hugodipa");
+  await _auth.signInWithEmailAndPassword("hugodip@orange.fr", "hugodipa");
   if (user != null) {
     //successfull login
     print("User successfully logged");
@@ -153,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
       String startDate, String endDate, String startHour, String endHour) {
     // Parse the start and end dates
     DateTime startDateObj =
-        DateTime.parse(startDate.split('/').reversed.join('-'));
+    DateTime.parse(startDate.split('/').reversed.join('-'));
     DateTime endDateObj = DateTime.parse(endDate.split('/').reversed.join('-'));
 
     // Parse the start and end hours
@@ -201,10 +201,10 @@ class _MyHomePageState extends State<MyHomePage> {
   String formatDuration(
       String startDate, String endDate, String startHour, String endHour) {
 
-  DateTime startDateTime =
-      DateFormat('dd/MM/yyyy HH:mm').parse('$startDate ${startHour.replaceAll('h', ':')}');
-  DateTime endDateTime =
-      DateFormat('dd/MM/yyyy HH:mm').parse('$endDate ${endHour.replaceAll('h', ':')}');
+    DateTime startDateTime =
+    DateFormat('dd/MM/yyyy HH:mm').parse('$startDate ${startHour.replaceAll('h', ':')}');
+    DateTime endDateTime =
+    DateFormat('dd/MM/yyyy HH:mm').parse('$endDate ${endHour.replaceAll('h', ':')}');
 
 
     String frenchStartDay = getFrenchDay(startDate);
@@ -238,18 +238,18 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<prioriete> listp = <prioriete>[];
-/**
- * Permet de changer le jour selectionne
- 
-  void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-  if (!isSameDay(_selectedDay, selectedDay)) {
-    setState(() {
+  /**
+   * Permet de changer le jour selectionne
+
+      void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+      if (!isSameDay(_selectedDay, selectedDay)) {
+      setState(() {
       _focusedDay = focusedDay;
       _selectedDay = selectedDay;
       _selectedEvents = _getEventsForDay(selectedDay);
-    });
-  }
-}*/
+      });
+      }
+      }*/
 
   @override
   void dispose() {
@@ -266,7 +266,7 @@ class _MyHomePageState extends State<MyHomePage> {
     String startHour = '16:50';
     String endHour = '18:50';
     String durationString =
-        formatDuration(startDate, endDate, startHour, endHour);
+    formatDuration(startDate, endDate, startHour, endHour);
     print(durationString);
 
     ///print(getFrenchDay("17/02/2022"));
