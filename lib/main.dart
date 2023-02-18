@@ -92,10 +92,10 @@ class _MyHomePageState extends State<MyHomePage> {
         context,
         MaterialPageRoute(
             builder: (context) => Inter_Event(
-                time: focusedday, callback: AjouteEventtocetteputaineliste)));
+                time: focusedday, callback: AjoutEvenementListCal)));
   }
 
-  void AjouteEventtocetteputaineliste(DateTime d, Evenement e) {
+  void AjoutEvenementListCal(DateTime d, Evenement e) {
     //Le callback à rename quand ça sera fini
     if (selectedevents[d] != null) {
       selectedevents[d]?.add(e); //Peut poser problème
@@ -261,13 +261,13 @@ class _MyHomePageState extends State<MyHomePage> {
     selectedevents = {};
     super.initState();
     fas(ref);
-    String startDate = '16/02/2023';
+   /* String startDate = '16/02/2023';
     String endDate = '16/02/2023';
     String startHour = '16:50';
     String endHour = '18:50';
     String durationString =
     formatDuration(startDate, endDate, startHour, endHour);
-    print(durationString);
+    print(durationString);*/
 
     ///print(getFrenchDay("17/02/2022"));
   }
@@ -322,10 +322,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 return isSameDay(selectedday, date);
               },
             ),
-            ..._getEventsFromDay(selectedday).map((Evenement e) {
-              print(e.toString());
-
-              return Container(
+            ..._getEventsFromDay(selectedday).map((Evenement e) => Container(
                   color: Colors.blueAccent,
                   child: ListTile(
                     title: Row(children: [
@@ -336,8 +333,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           e.date_debut, e.date_fin, e.heure_debut, e.heure_fin))
                     ]),
                     subtitle: Text(e.nom),
-                  ));
-            }),
+                  ))
+            ),
           ],
         ),
       ),
