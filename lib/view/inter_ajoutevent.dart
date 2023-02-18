@@ -133,13 +133,13 @@ class _Inter_EventState extends State<Inter_Event> {
                         return "Saisir une date de fin";
                       }
                   }
-                else if(! Validator_ajoutevent.validateDateFormat(value))
+              //  else if(! Validator_ajoutevent.validateDateFormat(value))
                   {
-                    return "Format date ne correspond à dd/mm/yyyy";
+                  //  return "Format date ne correspond à dd/mm/yyyy";
                   }
-                else if(! Validator_ajoutevent.validateDatesFinAvantDebut(_CtrlDateD.text, _CtrlDateF.text))//
+               // else if(! Validator_ajoutevent.validateDatesFinAvantDebut(_CtrlDateD.text, _CtrlDateF.text))//
                   {
-                    return "Date de fin ne doit pas être avant la date de debut";
+                   // return "Date de fin ne doit pas être avant la date de debut";
                   }
                 return null;
               }
@@ -178,13 +178,13 @@ class _Inter_EventState extends State<Inter_Event> {
                 return "Saisir une heure de fin";
                 }
                 }
-                else if(! Validator_ajoutevent.validateDateFormat(value))
+                //else if(! Validator_ajoutevent.validateDateFormat(value))
                 {
-                return "Format date ne correspond à dd/mm/yyyy";
+                //return "Format date ne correspond à dd/mm/yyyy";
                 }
-                else if(! Validator_ajoutevent.validateHoursFinAvantDebut(_CtrlHeureD.text, _CtrlHeureF.text, _CtrlDateD.text, _CtrlDateF.text))
+                //else if(! Validator_ajoutevent.validateHoursFinAvantDebut(_CtrlHeureD.text, _CtrlHeureF.text, _CtrlDateD.text, _CtrlDateF.text))
                 {
-                return "Heure de fin ne doit pas être avant ou égales à  l'heure de debut";
+                //return "Heure de fin ne doit pas être avant ou égales à  l'heure de debut";
                 }
                 return null;
                 },
