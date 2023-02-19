@@ -96,12 +96,13 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void AjoutEvenementListCal(DateTime d, Evenement e) {
-    //Le callback à rename quand ça sera fini
+    //La liste des events est géré localement, mais fait tout de même le post pour l'instant
     if (selectedevents[d] != null) {
       selectedevents[d]?.add(e); //Peut poser problème
       db_event liantdemo = db_event();
       liantdemo.postDonneees(e);
     } else {
+
       selectedevents[d] = [
         Evenement.json(
             nom: e.nom,
@@ -110,15 +111,15 @@ class _MyHomePageState extends State<MyHomePage> {
             date_fin: e.date_fin,
             description: e.description,
             heure_debut: e.heure_debut,
-            heure_fin: e.heure_fin)
+            heure_fin: e.heure_fin,
+            prioName: e.prio.nom,
+            )
       ];
       db_event liantdemo = db_event();
 
       liantdemo.postDonneees(e);
       debugPrint("AJOUT");
     }
-
-    //selectedevents[d].add(e);
   }
 
   //Return l'evenement du jour selectionné
@@ -323,7 +324,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ..._getEventsFromDay(selectedday).map((Evenement e) => Container(
-                  color: Colors.blueAccent,
+                  color: Colors.blueGrey,//e.prio.couleur,
                   child: ListTile(
                     title: Row(children: [
                       Text(formatDuration(e.date_debut, e.date_fin,

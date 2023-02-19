@@ -18,6 +18,11 @@ class prioriete {
     nom = nomp;
   }
 
+  prioriete.Nom(String nom)
+  {
+    //Est censé construire une prioriété en se basant seulement via son nom, if else called db je sais pas
+  }
+
   String getNom() {
     return nom;
   }

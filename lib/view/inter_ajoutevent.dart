@@ -63,7 +63,7 @@ class _Inter_EventState extends State<Inter_Event> {
       widget.callback(
           widget.time,
           Evenement(
-              id: await db_event().CountElement(),//TODO: Next Time:  modification endpoints pour event pour y rajouter l'attribut priorité, modifier le get db_event, faire db_prioriete(au moins le get) /!\ Casts à faire, gérer l'affichage couleur sur la vue evenement,  à la fin instancier selectedevents via la db et uniquement la db
+              id: await db_event().CountElement(),//TODO: Next Time:   modifier le get db_event, faire db_prioriete(au moins le get) /!\ Casts à faire, gérer l'affichage couleur sur la vue evenement,  à la fin instancier selectedevents via la db et uniquement la db
               nom: _CtrlNom.text,
               auteur: "TEST",
               date_debut: _CtrlDateD.text,
@@ -149,7 +149,7 @@ class _Inter_EventState extends State<Inter_Event> {
                 setState(() {
                   if (choix != null) {
                     Ctrl1.text = DateFormat('dd/MM/yyyy').format(choix);
-                    print(Ctrl1);
+                    //print(Ctrl1);
                   }
                 });
               }),
