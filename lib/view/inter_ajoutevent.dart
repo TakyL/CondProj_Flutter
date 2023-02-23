@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_calendrier/classes/priorit%C3%A9_class.dart';
+import 'package:flutter_calendrier/metiers/priorit%C3%A9_class.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
-import '../classes/evenements_class.dart';
+import '../metiers/evenements_class.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../db/database_evenement.dart';
-import '../viewmodel/Widget_interface_ajoutevent/viewmodel_interfaceajoutevent.dart';
 import '../validators/validator.ajoutevent.dart';
 List<String> l = listp.map((e) => e.nom).toList();
 
@@ -63,7 +62,7 @@ class _Inter_EventState extends State<Inter_Event> {
       widget.callback(
           widget.time,
           Evenement(
-              id: await db_event().CountElement(),//TODO: Next Time:   modifier le get db_event, faire db_prioriete(au moins le get) /!\ Casts à faire, gérer l'affichage couleur sur la vue evenement,  à la fin instancier selectedevents via la db et uniquement la db
+              id: await db_event().CountElement(),//TODO: Next Time:   faire db_prioriete(au moins le get) /!\ Casts à faire, gérer l'affichage couleur sur la vue evenement,  à la fin instancier selectedevents via la db et uniquement la db
               nom: _CtrlNom.text,
               auteur: "TEST",
               date_debut: _CtrlDateD.text,

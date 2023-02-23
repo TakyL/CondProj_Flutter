@@ -75,7 +75,7 @@ class CustomMaterialColor {
     return MaterialColor(Color.fromRGBO(r, g, b, 1).value, color);
   }
 }
-
+///Rajoute une option pour convertir de l'hexa vers
 extension HexColor on Color {
   /// String is in the format "aabbcc" or "ffaabbcc" with an optional leading "#".
   static Color fromHex(String hexString) {

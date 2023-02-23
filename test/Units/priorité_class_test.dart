@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_calendrier/classes/priorit%C3%A9_class.dart';
+import 'package:flutter_calendrier/metiers/priorit%C3%A9_class.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 
