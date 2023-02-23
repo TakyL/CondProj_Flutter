@@ -25,8 +25,6 @@ class Evenement {
       required this.heure_fin,
       required this.description,
       required this.prio});
-  Evenement.n(
-      {required this.nom}); //FIXME Bricolage poiur l'affichage dans la vue
 
   Evenement.json(
       {required this.nom,

@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+///
+/// Classe qui regroupe les validators de l'interface d'ajout d'évenements
  class Validator_ajoutevent
 {
   static bool validateDateFormat(String value) {
