@@ -10,6 +10,7 @@ import '../metiers/evenements_class.dart';
 import '../metiers/priorité_class.dart';
 import '../outils/StringConvert.dart';
 import '../widgets/Widget_FloatingActionBtn.dart';
+import 'Calendrier_Evenements.dart';
 import 'inter_ajoutevent.dart';
 
 ///Vue principale de l'app
@@ -185,7 +186,7 @@ class _CalendrierMainState extends State<CalendrierMain> {
             ),
             ..._getEventsFromDay(selectedday).map((Evenement e)  => Container (
                 color:  Colors.blue,//await test(e) as MaterialColor,//Colors.blueGrey,//e.prio.couleur,
-                child: ListTile(
+                child: MyListTile(event: e)/*ListTile(
                   title: Row(children: [
                     Text(StringConvert.formatDuration(e.date_debut, e.date_fin,
                         e.heure_debut, e.heure_fin)),
@@ -194,7 +195,7 @@ class _CalendrierMainState extends State<CalendrierMain> {
                         e.date_debut, e.date_fin, e.heure_debut, e.heure_fin))
                   ]),
                   subtitle: Text(e.nom),
-                ))
+                )*/)
             ),
           ],
         ),
