@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_calendrier/classes/evenements_class.dart';
+import 'package:flutter_calendrier/metiers/evenements_class.dart';
 
 import 'database_interface.dart';
 
@@ -25,8 +25,8 @@ class db_event implements database_interface {
         liste.add(Evenement.convert(value));
       });
 
-      print(liste
-          .toString()); //TODO utiliser un iterator pour l'affichage des evenements => utilisation du DP iterator
+      print(liste[0]);
+      //TODO utiliser un iterator pour l'affichage des evenements => utilisation du DP iterator
 
       //  print(m.entries.iterator.current.value);
       //var Map1 = Map<String,dynamic>.from(Map.fromIterable(snapshot.value as List).values.toList()[0]);
@@ -40,24 +40,18 @@ class db_event implements database_interface {
       // print(a.entries.iterator.current.value);
       //var u = Evenement.fromJson(a.entries.iterator.current.value);
       //print(u);
-    } else {
-      print('No data available.');
-    }
+    } else {}
   }
 
   @override
-  void getDonneesByAttributs() {
+  void getDonneesByAttributs(String data) {
     // TODO: implement getDonneesByAttributs
   }
 
   @override
   void getDonneesById(int id) async {
     final snapshot = await connexion_db().child('events/$id').get();
-    if (snapshot.exists) {
-      print(snapshot.value);
-    } else {
-      print('No data available.');
-    }
+    if (snapshot.exists) {} else {}
   }
 
   @override
@@ -74,7 +68,7 @@ class db_event implements database_interface {
         "end_hour": o.heure_fin,
         "author": o.auteur,
         "description": o.description,
-        //priorite non traitée pour le moment faut faire call à
+        "priorite":o.prio.nom
       });
     } else {
       throw const FormatException(
@@ -92,9 +86,17 @@ class db_event implements database_interface {
     return nb;
   }
 
-  @override
-  Future<List<Object>> test() {
-    // TODO: implement test
-    throw UnimplementedError();
+  Future<List<Object>> getDonneesAsObjects() async {
+    final snapshot = await connexion_db().child(path).get();
+    if (snapshot.exists) {
+      List<Evenement> liste = [];
+      Map m = Map.fromIterable(snapshot.value as List);
+      m.forEach((key, value) {
+        liste.add(Evenement.convert(value));
+      });
+      return liste.cast<Object>().toList();
+    } else {
+      throw Exception('hono');
+    }
   }
 }

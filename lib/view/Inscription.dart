@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 void main(List<String> args) {
-  runApp(const ConnexionApp());
+  runApp(const InscriptionApp());
 }
 
-class ConnexionApp extends StatelessWidget {
-  const ConnexionApp({super.key});
+class InscriptionApp extends StatelessWidget {
+  const InscriptionApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,29 +34,16 @@ class _RootPageState extends State<RootPage> {
         width: MediaQuery.of(context).size.width, // Full Width of Screen
         height: 800.0, // Desired Height
 
-        child: Column(
+        child: Flex(
+          direction: Axis.vertical,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
               width: 200.0,
               height: 200.0,
               child: Image.asset(
-                'lib/assets/logo.png',
+                'assets/images/planif.png',
                 alignment: Alignment.center,
-              ),
-            ),
-            const SizedBox(
-              width: 500.0,
-              child: TextField(
-                decoration: InputDecoration(
-                    hintText: "Prénom"),
-              ),
-            ),
-            const SizedBox(
-              width: 500.0,
-              child: TextField(
-                decoration: InputDecoration(
-                    hintText: "Nom"),
               ),
             ),
             const SizedBox(
@@ -69,28 +56,28 @@ class _RootPageState extends State<RootPage> {
             const SizedBox(
               width: 500.0,
               child: TextField(
+                obscureText: true,
+                enableSuggestions: false,
+                autocorrect: false,
                 decoration: InputDecoration(
-                    hintText: "Pseudonyme",
-                    ),
+                    hintText: "Mot de passe", icon: Icon(Icons.password)),
               ),
             ),
             const SizedBox(
               width: 500.0,
               child: TextField(
+                obscureText: true,
+                enableSuggestions: false,
+                autocorrect: false,
                 decoration: InputDecoration(
-                    hintText: "Mot de passe", icon: Icon(Icons.password)),
+                    hintText: "Vérifier Mot de passe",
+                    icon: Icon(Icons.password)),
               ),
             ),
             FloatingActionButton.extended(
               onPressed: () {},
               icon: const Icon(Icons.next_plan_rounded),
               label: const Text("S'inscrire"),
-            ),
-            InkWell(
-              onTap: () {
-                // Ce qui se passe lorsque le texte est cliqué
-              },
-              child: const Text("Vous avez deja un compte ? Se connecter."),
             ),
           ],
         ),

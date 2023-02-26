@@ -52,7 +52,7 @@ class _RootPageState extends State<RootPage> {
               child: TextField(
                 decoration: InputDecoration(
                     hintText: "Identifiant",
-                  //  icon: const Icon(Icons.man_2_outlined)),
+                    icon: Icon(Icons.account_circle_outlined),
               )),
             ),
             const SizedBox(
