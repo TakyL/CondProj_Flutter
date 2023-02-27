@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_calendrier/classes/evenements_class.dart';
+import 'package:flutter_calendrier/metiers/evenements_class.dart';
 
 
 import 'database_interface.dart';
@@ -17,7 +17,7 @@ class db_cal_event implements database_interface
   }
 
   @override
-  void getDonneesByAttributs() {
+  void getDonneesByAttributs(String data) {
     // TODO: implement getDonneesByAttributs
   }
 

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_calendrier/classes/priorit%C3%A9_class.dart';
+import 'package:flutter_calendrier/metiers/priorit%C3%A9_class.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
-import '../classes/evenements_class.dart';
+import '../metiers/evenements_class.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:table_calendar/table_calendar.dart';
-import '../viewmodel/Widget_interface_ajoutevent/viewmodel_interfaceajoutevent.dart';
-
+import '../db/database_evenement.dart';
+import '../validators/validator.ajoutevent.dart';
 List<String> l = listp.map((e) => e.nom).toList();
 
 class Inter_Event extends StatefulWidget {
@@ -31,13 +30,24 @@ class _Inter_EventState extends State<Inter_Event> {
   final _CtrlHeureF = TextEditingController();
   final _CtrlDsc = TextEditingController();
 
-  prioriete dropdownValue = listp.first;
+  prioriete dropdownValue = listp.first;//TODO COnfig les validator
 
   Color? DetermineCouleur(prioriete value) {
     // debugPrint(value.toString());
     return value.couleur;
     //debugPrint(listp.toString());
   }
+
+  //Permet de corirger le format de la date
+  String formatTimeString(String timeString) {
+  List<String> parts = timeString.split(":");
+  if (int.parse(parts[1]) < 10) {
+    return "${parts[0]}h0${parts[1]}";
+  } else {
+    return timeString;
+  }
+}
+
 
   @override
   void dispose() {
@@ -46,12 +56,13 @@ class _Inter_EventState extends State<Inter_Event> {
     super.dispose();
   }
 
-  void loginbutton() {
+  void loginbutton() async{
     if (_formKey.currentState!.validate()) {
+
       widget.callback(
           widget.time,
           Evenement(
-              id: 0,//faire un fetch ici
+              id: await db_event().CountElement(),//TODO: Next Time:   faire db_prioriete(au moins le get) /!\ Casts à faire, gérer l'affichage couleur sur la vue evenement,  à la fin instancier selectedevents via la db et uniquement la db
               nom: _CtrlNom.text,
               auteur: "TEST",
               date_debut: _CtrlDateD.text,
@@ -69,7 +80,11 @@ class _Inter_EventState extends State<Inter_Event> {
     }
   }
 
-  ///Widgets [ à déplacer plus tard dans un fichier à part où on retrouve tous les widgets mais y'a des problèmes genre pour le context, le dropdownbutton notament, à voir si on peut pas créer une classe qui derriere va recup les fonctions comme ça si on en constructeur, on met le context, seul problème sera le widget.time donc tout les callback]
+
+  ///Widgets
+  ///
+  /// Renvoie le dropdown menu qui permet de choisir la priorite
+  ///
   DropdownButtonFormField<prioriete>
       WidgetDropDownButton() //Gère le dropdownButtonFiled, c'est la cause des lignes d'erreurs car en fait j'ai mis expanded sauf que ça ignore les règles expanded et du coup faut tout mettre en expanded et que c'est un peu le bordel actuellement
   {
@@ -90,6 +105,7 @@ class _Inter_EventState extends State<Inter_Event> {
         }).toList());
   }
 
+  ///Crée une ligne avec un widget date et hour picker
   Row LigneDate(
       String nom, TextEditingController Ctrl1, TextEditingController Ctrl2) {
     return Row(children: [
@@ -105,12 +121,34 @@ class _Inter_EventState extends State<Inter_Event> {
                 labelText: "Date de $nom",
               ),
               readOnly: true, // when true user cannot edit text
+              validator: (value) {
+
+                if(value == null || value.trim().isEmpty)
+                  {
+                    if(nom=="debut") {
+                      return "Saisir une date de début";
+                    } else
+                      {
+                        return "Saisir une date de fin";
+                      }
+                  }
+              //  else if(! Validator_ajoutevent.validateDateFormat(value))
+                  {
+                  //  return "Format date ne correspond à dd/mm/yyyy";
+                  }
+               // else if(! Validator_ajoutevent.validateDatesFinAvantDebut(_CtrlDateD.text, _CtrlDateF.text))//
+                  {
+                   // return "Date de fin ne doit pas être avant la date de debut";
+                  }
+                return null;
+              }
+              ,
               onTap: () async {
                 DateTime? choix = await datePicker();
                 setState(() {
                   if (choix != null) {
                     Ctrl1.text = DateFormat('dd/MM/yyyy').format(choix);
-                    print(Ctrl1);
+                    //print(Ctrl1);
                   }
                 });
               }),
@@ -128,11 +166,32 @@ class _Inter_EventState extends State<Inter_Event> {
                     labelText: "Heure de $nom" //label text of field
                     ),
                 readOnly: true, // when true user cannot edit text
+                validator: (value) {
+
+                if(value == null || value.trim().isEmpty)
+                {
+                if(nom=="debut") {
+                return "Saisir une heure de début";
+                } else
+                {
+                return "Saisir une heure de fin";
+                }
+                }
+                //else if(! Validator_ajoutevent.validateDateFormat(value))
+                {
+                //return "Format date ne correspond à dd/mm/yyyy";
+                }
+                //else if(! Validator_ajoutevent.validateHoursFinAvantDebut(_CtrlHeureD.text, _CtrlHeureF.text, _CtrlDateD.text, _CtrlDateF.text))
+                {
+                //return "Heure de fin ne doit pas être avant ou égales à  l'heure de debut";
+                }
+                return null;
+                },
                 onTap: () async {
                   TimeOfDay? choix = await hourPicker();
                   setState(() {
                     if (choix != null) {
-                      Ctrl2.text = "${choix.hour}:${choix.minute}";
+                      Ctrl2.text = formatTimeString("${choix.hour}:${choix.minute}");
                     }
                   });
                 }),
