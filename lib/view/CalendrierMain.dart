@@ -50,7 +50,7 @@ class _CalendrierMainState extends State<CalendrierMain> {
   void AjoutEvenementListCal(DateTime d, Evenement e) {
     //La liste des events est géré localement, mais fait tout de même le post pour l'instant
     if (selectedevents[d] != null) {
-      selectedevents[d]?.add(e); //Peut poser problème
+      selectedevents[d]?.add(e); 
       db_event liantdemo = db_event();
       liantdemo.postDonneees(e);
     } else {

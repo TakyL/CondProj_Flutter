@@ -1,5 +1,8 @@
 import 'package:intl/intl.dart';
 
+/**
+ * Classe outils qui modifie/convertissent des String
+ */
 class StringConvert
 {
   /// Supprime le zéro initial d'une chaîne si présent.
@@ -111,5 +114,18 @@ class StringConvert
     String capitalizedDayOfWeek =
         dayOfWeek.substring(0, 1).toUpperCase() + dayOfWeek.substring(1);
     return capitalizedDayOfWeek;
+  }
+
+  ///Ajoute un 0 au mintues si le format reçu ne correspond pas à hh:mm
+  ///
+  ///Permet de corriger le format de la date
+  ///Ex: In : 05:5 => 05:05
+  String formatTimeString(String timeString) {
+    List<String> parts = timeString.split(":");
+    if (int.parse(parts[1]) < 10) {
+      return "${parts[0]}h0${parts[1]}";
+    } else {
+      return timeString;
+    }
   }
 }

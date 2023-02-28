@@ -1,4 +1,6 @@
 
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendrier/metiers/evenements_class.dart';
@@ -9,6 +11,10 @@ class MyListTile extends StatelessWidget {
   final Evenement event;
 
   const MyListTile({Key? key, required this.event}) : super(key: key);
+
+  void PushInterface()//DateTime.now + le callback sera unne function qui recherche dans une liste d'evenements et le modifie
+  {
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +48,10 @@ class MyListTile extends StatelessWidget {
         ),
       ),
       subtitle: Center(child: Text(event.nom)),
+      onLongPress: () => {
+          PushInterface()
+      },
+      onTap: () => Navigator.pop(context, event.description),
     );
   }
 }

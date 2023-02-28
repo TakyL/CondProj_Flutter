@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_calendrier/metiers/priorit%C3%A9_class.dart';
+import 'package:flutter_calendrier/outils/StringConvert.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import '../metiers/evenements_class.dart';
@@ -30,23 +31,13 @@ class _Inter_EventState extends State<Inter_Event> {
   final _CtrlHeureF = TextEditingController();
   final _CtrlDsc = TextEditingController();
 
-  prioriete dropdownValue = listp.first;//TODO COnfig les validator
+  prioriete dropdownValue = listp.first;
 
   Color? DetermineCouleur(prioriete value) {
     // debugPrint(value.toString());
     return value.couleur;
     //debugPrint(listp.toString());
   }
-
-  //Permet de corirger le format de la date
-  String formatTimeString(String timeString) {
-  List<String> parts = timeString.split(":");
-  if (int.parse(parts[1]) < 10) {
-    return "${parts[0]}h0${parts[1]}";
-  } else {
-    return timeString;
-  }
-}
 
 
   @override
@@ -191,7 +182,7 @@ class _Inter_EventState extends State<Inter_Event> {
                   TimeOfDay? choix = await hourPicker();
                   setState(() {
                     if (choix != null) {
-                      Ctrl2.text = formatTimeString("${choix.hour}:${choix.minute}");
+                      Ctrl2.text = StringConvert().formatTimeString("${choix.hour}:${choix.minute}");
                     }
                   });
                 }),
