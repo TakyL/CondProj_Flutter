@@ -66,39 +66,84 @@ class _inter_registeruser extends State<inter_registeruser> {
       ),
       body: Form(
         key: _formKey,
-        child: Column(children: <Widget>[
-          TextFormField(
-              controller: _emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
-              validator: (value) => validateEmail(value!)),
-          TextFormField(
-              controller: _passwordController,
-              decoration: const InputDecoration(labelText: 'Password'),
-              obscureText: true,
-              validator: (value) => validatePassword(value!)),
-          TextFormField(
-              controller: _verifyPasswordController,
-              decoration: const InputDecoration(labelText: 'Verify Password'),
-              obscureText: true,
-              validator: (value) => validateMatch(value!)),
-          TextButton(
-            child: const Text('Sign Up'),
-            onPressed: () async {
-              if (_formKey.currentState!.validate()) {
-                try {
-                  UserCredential authResult =
-                      await createUserWithEmailAndPassword(
-                          _emailController.text, _passwordController.text);
-                } catch (e) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text(e.toString()),
-                    backgroundColor: Colors.red,
-                  ));
-                }
-              }
-            },
-          )
-        ]),
+        child: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.1,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: TextFormField(
+                    controller: _emailController,
+                    decoration: const InputDecoration(
+                      labelText: 'Email',
+                    ),
+                    validator: (value) => validateEmail(value!),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.02,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: TextFormField(
+                    controller: _passwordController,
+                    decoration: const InputDecoration(
+                      labelText: 'Password',
+                    ),
+                    obscureText: true,
+                    validator: (value) => validatePassword(value!),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.02,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: TextFormField(
+                    controller: _verifyPasswordController,
+                    decoration: const InputDecoration(
+                      labelText: 'Verify Password',
+                    ),
+                    obscureText: true,
+                    validator: (value) => validateMatch(value!),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.05,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: TextButton(
+                    child: const Text('Sign Up'),
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        try {
+                          UserCredential authResult =
+                              await createUserWithEmailAndPassword(
+                                  _emailController.text,
+                                  _passwordController.text);
+                        } catch (e) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(e.toString()),
+                            backgroundColor: Colors.red,
+                          ));
+                        }
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
