@@ -30,17 +30,37 @@ class StringConvert
   /// Exemple d'utilisation: calculateDuration('16/02/2023', '16:30', '16/02/2023', '18:00') renvoie 90
   static String calculateDuration(
       String startDate, String endDate, String startHour, String endHour) {
+
     // Parse the start and end dates
     DateTime startDateObj =
     DateTime.parse(startDate.split('/').reversed.join('-'));
     DateTime endDateObj = DateTime.parse(endDate.split('/').reversed.join('-'));
 
     // Parse the start and end hours
-    List<String> startHourParts = startHour.split(':');
+    List<String> startHourParts;
+    if(startHour.contains(':')) {
+      startHourParts = endHour.split(':');
+    }
+    else if(startHour.contains('h'))
+    {
+      startHourParts = endHour.split('h');
+    }
+    else {
+      throw ("Date de fin contient un caractère non reconnu");
+    }
     int startHourInt = int.parse(startHourParts[0]);
     int startMinuteInt = int.parse(startHourParts[1]);
-
-    List<String> endHourParts = endHour.split(':');
+    List<String> endHourParts;
+    if(endHour.contains(':')) {
+      endHourParts = endHour.split(':');
+    }
+    else if(endHour.contains('h'))
+      {
+        endHourParts = endHour.split('h');
+      }
+    else {
+      throw ("Date de fin contient un caractère non reconnu");
+    }
     int endHourInt = int.parse(endHourParts[0]);
     int endMinuteInt = int.parse(endHourParts[1]);
 
@@ -116,16 +136,18 @@ class StringConvert
     return capitalizedDayOfWeek;
   }
 
-  ///Ajoute un 0 au mintues si le format reçu ne correspond pas à hh:mm
+  ///Ajoute un 0 au minutes si le format reçu ne correspond pas à hh:mm
   ///
   ///Permet de corriger le format de la date
-  ///Ex: In : 05:5 => 05:05
+  ///Ex: In : 05:5 => 05h05 ou In : 9:5 => 09h05
   String formatTimeString(String timeString) {
     List<String> parts = timeString.split(":");
-    if (int.parse(parts[1]) < 10) {
-      return "${parts[0]}h0${parts[1]}";
-    } else {
-      return timeString;
+    if (int.parse(parts[0]) < 10) {
+      parts[0] = "0${parts[0]}";
     }
+    if (int.parse(parts[1]) < 10) {
+      parts[1] = "0${parts[1]}";
+    }
+    return "${parts[0]}h${parts[1]}";
   }
 }
