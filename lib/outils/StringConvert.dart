@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 
 /**
@@ -30,7 +31,6 @@ class StringConvert
   /// Exemple d'utilisation: calculateDuration('16/02/2023', '16:30', '16/02/2023', '18:00') renvoie 90
   static String calculateDuration(
       String startDate, String endDate, String startHour, String endHour) {
-
     // Parse the start and end dates
     DateTime startDateObj =
     DateTime.parse(startDate.split('/').reversed.join('-'));
@@ -39,11 +39,11 @@ class StringConvert
     // Parse the start and end hours
     List<String> startHourParts;
     if(startHour.contains(':')) {
-      startHourParts = endHour.split(':');
+      startHourParts = startHour.split(':');
     }
     else if(startHour.contains('h'))
     {
-      startHourParts = endHour.split('h');
+      startHourParts = startHour.split('h');
     }
     else {
       throw ("Date de fin contient un caractère non reconnu");
@@ -104,7 +104,6 @@ class StringConvert
     DateFormat('dd/MM/yyyy HH:mm').parse('$startDate ${startHour.replaceAll('h', ':')}');
     DateTime endDateTime =
     DateFormat('dd/MM/yyyy HH:mm').parse('$endDate ${endHour.replaceAll('h', ':')}');
-
 
     String frenchStartDay = getFrenchDay(startDate);
     String frenchEndDay = getFrenchDay(endDate);
