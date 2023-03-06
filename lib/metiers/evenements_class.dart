@@ -39,7 +39,7 @@ class Evenement {
 
   @override
   String toString() {
-    return nom;
+    return nom+" "+date_debut+" "+heure_debut+"/"+date_fin+" "+heure_fin+"/"+description+"|"+prioName+" "+prio.toString();
   }
 
   factory Evenement.fromJson(Map<String, dynamic> json) {

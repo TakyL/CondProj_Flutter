@@ -9,6 +9,7 @@ import '../db/database_prioriete.dart';
 import '../metiers/evenements_class.dart';
 import '../metiers/priorité_class.dart';
 import '../outils/StringConvert.dart';
+import '../widgets/Widget_Container.dart';
 import '../widgets/Widget_FloatingActionBtn.dart';
 import 'Calendrier_Evenements.dart';
 import 'inter_ajoutevent.dart';
@@ -50,11 +51,20 @@ class _CalendrierMainState extends State<CalendrierMain> {
   void AjoutEvenementListCal(DateTime d, Evenement e) {
     //La liste des events est géré localement, mais fait tout de même le post pour l'instant
     if (selectedevents[d] != null) {
-      selectedevents[d]?.add(e); //Peut poser problème
+      selectedevents[d]?.add(Evenement.json(
+        nom: e.nom,
+        auteur: e.auteur,
+        date_debut: e.date_debut,
+        date_fin: e.date_fin,
+        description: e.description,
+        heure_debut: e.heure_debut,
+        heure_fin: e.heure_fin,
+        prioName: e.prio.nom,
+      ));
       db_event liantdemo = db_event();
       liantdemo.postDonneees(e);
-    } else {
-
+    } else
+    {
       selectedevents[d] = [
         Evenement.json(
           nom: e.nom,
@@ -93,19 +103,30 @@ class _CalendrierMainState extends State<CalendrierMain> {
       }
       }*/
   Future<MaterialColor> getMaterialColor(String prioName) async {
-    if (prioName.isNotEmpty) {
+    if (prioName?.isNotEmpty ?? false) {
+      debugPrint("TOUJOURS JE PASSERAIS"+prioName);
       db_prio dab = db_prio();
       prioriete? pr = await dab.getDonneesByAttributsv2(prioName);
       if (pr != null) {
-        return pr.couleur;
+        debugPrint("Col" + pr.couleur.runtimeType.toString());
+        MaterialColor a = await pr.couleur;
+        return a;
       }
     }
     return Colors.blue;
   }
 
-//FIXME: Au lieu de faire un get, ça serait mieux de faire un getall au debut du projet puis ensuite on la stabilise comme ça on fait la comparaison uniquement sur ça
-  MaterialColor test(Evenement evenement) {
-    return  getMaterialColor(evenement.prioName) as MaterialColor;
+  Future<MaterialColor> test(Evenement evenement) async{
+
+    if(evenement.prioName?.isNotEmpty ?? false)
+      {
+
+        MaterialColor a = await getMaterialColor(evenement.prioName) ;
+        return a;
+      }
+    else throw ("Problème au niveau de la prioriété");
+
+
   }
 
   DateTime focusedday = DateTime.now();
@@ -184,8 +205,9 @@ class _CalendrierMainState extends State<CalendrierMain> {
                 return isSameDay(selectedday, date);
               },
             ),
-            ..._getEventsFromDay(selectedday).map((Evenement e)  => Container (
-                color:  Colors.blue,//await test(e) as MaterialColor,//Colors.blueGrey,//e.prio.couleur,
+            ..._getEventsFromDay(selectedday).map((Evenement e)  => MyContainer (
+               // color:  test(e) as MaterialColor,//await test(e) as MaterialColor,//Colors.blueGrey,//e.prio.couleur,
+                colorFuture: test(e),
                 child: MyListTile(event: e)/*ListTile(
                   title: Row(children: [
                     Text(StringConvert.formatDuration(e.date_debut, e.date_fin,

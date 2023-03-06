@@ -11,7 +11,6 @@ List<prioriete> listp = <prioriete>[
 class prioriete {
   late int id;
   late String nom;
-  //lis a;
   late MaterialColor couleur;
 
   //prioriete({required this.id, required this.nom})
@@ -39,14 +38,14 @@ class prioriete {
   }
 
   factory prioriete.convert(value) {
-    return prioriete.json(value['numero'] as String, value['libelle'] as String,
-        value['couleur'] as String);
+    return prioriete.json(value['niveau'].toString(), value['libelle'].toString(),
+        value['couleur'].toString());
   }
 
   prioriete.json(String id, String nom, String couleur) {
     this.id = int.parse(id);
     this.nom = nom;
-    Color c = HexColor.fromHex(couleur); //gerer si ce truc est nul
+    Color c = HexColor.fromHex(couleur); //TODO gerer si ce truc est null
     this.couleur = CustomMaterialColor(c.red, c.green, c.blue).mdColor;
   }
 }
