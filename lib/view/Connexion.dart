@@ -62,14 +62,14 @@ class _RootPageState extends State<RootPage> {
                 ),
               ),
               SizedBox(
-                  width: 500.0,
+                  width: MediaQuery.of(context).size.width * 0.8,
                   child: TextFormField(
                     decoration: InputDecoration(
                         hintText: "E-Mail", icon: Icon(Icons.person)),
                     controller: emailController,
                   )),
               SizedBox(
-                width: 500.0,
+                width: MediaQuery.of(context).size.width * 0.8,
                 child: TextFormField(
                   obscureText: true,
                   enableSuggestions: false,
@@ -79,6 +79,7 @@ class _RootPageState extends State<RootPage> {
                   controller: passwordController,
                 ),
               ),
+              const SizedBox(height: 16.0),
               FloatingActionButton.extended(
                 onPressed: () async {
                   final FirebaseAuthService _auth = FirebaseAuthService();
@@ -95,12 +96,20 @@ class _RootPageState extends State<RootPage> {
                     );
                   } else {
                     //unsuccessfull login
-                    print("User non successfully logged");
+                    print("User unsuccessfully logged");
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content:
+                            const Text('Identifiant ou mot de passe incorrect'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
                   }
                 },
                 icon: const Icon(Icons.next_plan_rounded),
                 label: const Text("Se connecter"),
               ),
+              const SizedBox(height: 16.0),
               InkWell(
                 onTap: () {
                   Navigator.push(
