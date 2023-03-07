@@ -62,13 +62,13 @@ class _inter_registeruser extends State<inter_registeruser> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Registering"),
+        title: const Text("Inscription"),
       ),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: Column(
@@ -122,7 +122,7 @@ class _inter_registeruser extends State<inter_registeruser> {
                 Container(
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: TextButton(
-                    child: const Text('Sign Up'),
+                    child: const Text("S'inscrire"),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         try {
