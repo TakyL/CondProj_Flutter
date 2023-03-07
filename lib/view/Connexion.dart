@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_calendrier/classes/calendrier_class.dart';
 import 'package:flutter_calendrier/main.dart';
+import 'package:flutter_calendrier/view/CalendrierMain.dart';
 import 'package:flutter_calendrier/view/inter_registeruser.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_calendrier/classes/firebase_auth_services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_calendrier/db/firebase_options.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_calendrier/view/inter_registeruser.dart';
+
+import '../metiers/firebase_auth_services.dart';
 
 void main(List<String> args) {
   runApp(const ConnexionApp());
@@ -64,7 +65,7 @@ class _RootPageState extends State<RootPage> {
               SizedBox(
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: TextFormField(
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         hintText: "E-Mail", icon: Icon(Icons.person)),
                     controller: emailController,
                   )),
@@ -74,7 +75,7 @@ class _RootPageState extends State<RootPage> {
                   obscureText: true,
                   enableSuggestions: false,
                   autocorrect: false,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       hintText: "Mot de passe", icon: Icon(Icons.password)),
                   controller: passwordController,
                 ),
@@ -92,15 +93,15 @@ class _RootPageState extends State<RootPage> {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              MyHomePage(title: 'Calendrier')),
+                              const CalendrierMain(title: 'Calendrier')),
                     );
                   } else {
                     //unsuccessfull login
                     print("User unsuccessfully logged");
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
+                      const SnackBar(
                         content:
-                            const Text('Identifiant ou mot de passe incorrect'),
+                            Text('Identifiant ou mot de passe incorrect'),
                         backgroundColor: Colors.red,
                       ),
                     );
