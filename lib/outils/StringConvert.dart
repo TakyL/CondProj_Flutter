@@ -33,33 +33,28 @@ class StringConvert
       String startDate, String endDate, String startHour, String endHour) {
     // Parse the start and end dates
     DateTime startDateObj =
-    DateTime.parse(startDate.split('/').reversed.join('-'));
-    DateTime endDateObj = DateTime.parse(endDate.split('/').reversed.join('-'));
+    DateFormat('dd/MM/yyyy').parse(startDate);
+
+    DateTime endDateObj = DateFormat('dd/MM/yyyy').parse(endDate);
 
     // Parse the start and end hours
     List<String> startHourParts;
-    if(startHour.contains(':')) {
+    if (startHour.contains(':')) {
       startHourParts = startHour.split(':');
-    }
-    else if(startHour.contains('h'))
-    {
+    } else if (startHour.contains('h')) {
       startHourParts = startHour.split('h');
-    }
-    else {
-      throw ("Date de fin contient un caractère non reconnu");
+    } else {
+      throw ("End date contains an unrecognized character");
     }
     int startHourInt = int.parse(startHourParts[0]);
     int startMinuteInt = int.parse(startHourParts[1]);
     List<String> endHourParts;
-    if(endHour.contains(':')) {
+    if (endHour.contains(':')) {
       endHourParts = endHour.split(':');
-    }
-    else if(endHour.contains('h'))
-      {
-        endHourParts = endHour.split('h');
-      }
-    else {
-      throw ("Date de fin contient un caractère non reconnu");
+    } else if (endHour.contains('h')) {
+      endHourParts = endHour.split('h');
+    } else {
+      throw ("End date contains an unrecognized character");
     }
     int endHourInt = int.parse(endHourParts[0]);
     int endMinuteInt = int.parse(endHourParts[1]);
@@ -67,17 +62,22 @@ class StringConvert
     // Calculate the duration in minutes
     int durationMinutes = 0;
     if (startDateObj == endDateObj) {
+      // Calculate the duration in minutes for the same day
       durationMinutes =
           (endHourInt - startHourInt) * 60 + (endMinuteInt - startMinuteInt);
     } else {
-      // Calculate the duration in minutes for the first and last day
+      // Calculate the duration in minutes for the first day
       int firstDayMinutes = (23 - startHourInt) * 60 + (60 - startMinuteInt);
+      //debugPrint(firstDayMinutes.toString());
+      // Calculate the duration in minutes for the last day
       int lastDayMinutes = endHourInt * 60 + endMinuteInt;
-
+      //debugPrint(lastDayMinutes.toString());
       // Calculate the duration in minutes for the full days in between
-      int fullDaysMinutes = endDateObj.difference(startDateObj).inDays * 1440;
-
-      durationMinutes = firstDayMinutes + lastDayMinutes + fullDaysMinutes;
+      int fullDaysMinutes =
+          endDateObj.difference(startDateObj).inDays * 1440;
+      //debugPrint(fullDaysMinutes.toString());
+      durationMinutes = firstDayMinutes + lastDayMinutes + fullDaysMinutes - 1440;
+     // debugPrint(durationMinutes.toString());
     }
 
     // Format the duration as "hhhmm"
@@ -139,7 +139,7 @@ class StringConvert
   ///
   ///Permet de corriger le format de la date
   ///Ex: In : 05:5 => 05h05 ou In : 9:5 => 09h05
-  String formatTimeString(String timeString) {
+  static String formatTimeString(String timeString) {
     List<String> parts = timeString.split(":");
     if (int.parse(parts[0]) < 10) {
       parts[0] = "0${parts[0]}";
