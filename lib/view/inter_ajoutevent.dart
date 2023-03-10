@@ -182,7 +182,7 @@ class _Inter_EventState extends State<Inter_Event> {
                   TimeOfDay? choix = await hourPicker();
                   setState(() {
                     if (choix != null) {
-                      Ctrl2.text = StringConvert().formatTimeString("${choix.hour}:${choix.minute}");
+                      Ctrl2.text = StringConvert.formatTimeString("${choix.hour}:${choix.minute}");
                     }
                   });
                 }),
