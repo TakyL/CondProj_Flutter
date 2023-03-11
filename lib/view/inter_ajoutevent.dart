@@ -8,7 +8,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../db/database_evenement.dart';
 import '../validators/validator.ajoutevent.dart';
-List<String> l = listp.map((e) => e.nom).toList();
+//List<String> l = listp.map((e) => e.nom).toList();
 
 class Inter_Event extends StatefulWidget {
   final DateTime time; //Permettra d'init le date picker
