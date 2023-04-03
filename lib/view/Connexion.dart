@@ -12,6 +12,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_calendrier/view/inter_registeruser.dart';
 
 import '../metiers/firebase_auth_services.dart';
+import 'MenuCalendrier.dart';
 
 void main(List<String> args) {
   runApp(const ConnexionApp());
@@ -40,6 +41,19 @@ class _RootPageState extends State<RootPage> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  ///
+  /// Récupère les nombre de calendrier d'un utilisateur donnée
+  List<Widget> RecupDonnees(String MailUser) {
+    List<String> data = ['Calendrier 1', 'Calendrier 2', 'Calendrier 3'];
+    List<Widget> widgets = [];
+
+    for (String item in data) {
+      widgets.add(Text(item));
+    }
+
+    return widgets;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,11 +104,11 @@ class _RootPageState extends State<RootPage> {
                   if (user != null) {
                     //successfull login
                     print("User successfully logged");
-                    Navigator.push(
+                     Navigator.push(
                       context,
-                      MaterialPageRoute(
+                        MaterialPageRoute(
                           builder: (context) =>
-                              const CalendrierMain(title: 'Calendrier')),
+                             MyCustomWidget(listTiles: RecupDonnees("MailUser") ))//   const CalendrierMain(title: 'Calendrier')),
                     );
                   } else {
                     //unsuccessfull login

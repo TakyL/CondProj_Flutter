@@ -12,7 +12,7 @@ import '../outils/StringConvert.dart';
 import '../widgets/Widget_Container.dart';
 import '../widgets/Widget_FloatingActionBtn.dart';
 import 'Calendrier_Evenements.dart';
-import 'inter_ajoutevent.dart';
+import 'AjouterEvent.dart';
 
 ///Vue principale de l'app
 ///Peut-être split en deux sous vues : Une qui affiche le tablecalendar et une autre qui affiche les événements.
