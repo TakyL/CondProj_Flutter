@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'Connexion.dart';
+
 ///
 /// Vue représentant le choix des calendriers
 /// Etat de sample pour le moment
+/// Il lui la liste des evenements sous forme de list de widget
 ///
 class MyCustomWidget extends StatelessWidget {
 
@@ -16,8 +19,14 @@ class MyCustomWidget extends StatelessWidget {
   ///
   /// Fonction qui retourne vers un menu précédent
   ///
-  void onBack()
+  void onBack(BuildContext context)
   {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) =>
+          const RootPage())
+    );
   }
 
   @override
@@ -36,7 +45,7 @@ class MyCustomWidget extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: onBack,
+        onPressed: () => onBack(context),
         child: const Icon(Icons.arrow_back),
       ),
     );
