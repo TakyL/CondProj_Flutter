@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calendrier/main.dart';
 import 'package:flutter_calendrier/view/CalendrierMain.dart';
 import 'package:flutter_calendrier/view/inter_registeruser.dart';
+import 'package:flutter_calendrier/view/inter_resetpassword.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -100,8 +101,7 @@ class _RootPageState extends State<RootPage> {
                     print("User unsuccessfully logged");
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content:
-                            Text('Identifiant ou mot de passe incorrect'),
+                        content: Text('Identifiant ou mot de passe incorrect'),
                         backgroundColor: Colors.red,
                       ),
                     );
@@ -120,6 +120,16 @@ class _RootPageState extends State<RootPage> {
                   );
                 },
                 child: const Text("Vous n'avez pas de compte ? S'inscrire"),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => inter_resetpassword()),
+                  );
+                },
+                child: const Text("Mot de passe oublié ? Réinitialiser"),
               ),
             ],
           ),
