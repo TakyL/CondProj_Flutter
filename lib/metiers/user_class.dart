@@ -1,45 +1,33 @@
-
-
 import 'package:flutter/foundation.dart';
 
+@immutable
 class User {
-  int Id;
-  String Nom;
-  String Mel;
-  String Pseudo;
+  final int id;
+  final String nom;
+  final String mel;
+  final String pseudo;
 
-  User(this.Id, this.Mel, this.Pseudo, this.Nom);
+  User({
+    required this.id,
+    required this.nom,
+    required this.mel,
+    required this.pseudo,
+  });
 
-
-  int get getId {
-    return Id;
-  }
-
-  set setId(int _Id) {
-    Id = _Id;
-  }
-
-  String get getNom {
-    return Nom;
-  }
-
-  set setNom(String _Nom) {
-    Nom = _Nom;
-  }
-
-  String get getMel {
-    return Mel;
-  }
-
-  set setMel(String _Mel) {
-    Mel = _Mel;
-  }
-
-  String get getPseudo {
-    return Pseudo;
-  }
-
-  set setPsedu(String _Pseudo) {
-    Pseudo = _Pseudo;
+  ///
+  /// Permet de mettre à jour les infos d'un user
+  User copyWith({
+    int? id,
+    String? nom,
+    String? mel,
+    String? pseudo,
+  }) {
+    return User(
+      id: id ?? this.id,
+      nom: nom ?? this.nom,
+      mel: mel ?? this.mel,
+      pseudo: pseudo ?? this.pseudo,
+    );
   }
 }
+
