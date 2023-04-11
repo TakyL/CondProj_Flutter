@@ -1,6 +1,5 @@
-import 'package:firebase_database/firebase_database.dart';
 
-class database_interface {
+class DatabaseInterface {
   void getDonnees() async {} //Fait un get all
 
   void getDonneesById(

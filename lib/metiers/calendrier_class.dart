@@ -4,10 +4,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:intl/date_symbol_data_local.dart'; //Pour le local
+//Pour le local
 
 class Calendrier extends Widget {
-  late int Iduser;
+  late int idUser;
   bool partage = false; //Liste d'id users si le calendrier est partagé
   late Set<int> tableauUser;
   CalendarFormat format = CalendarFormat.month;
@@ -21,7 +21,7 @@ class Calendrier extends Widget {
  * Dans un futur +- proche, il peut être envisé de faire un truc qui soit viable même après 2042
  */
   Calendrier(id, {partage = false}) {
-    Iduser = id;
+    idUser = id;
     if (partage != false) {
       this.partage = true;
       tableauUser.add(id);

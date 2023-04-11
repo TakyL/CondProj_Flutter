@@ -1,18 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_calendrier/main.dart';
-import 'package:flutter_calendrier/view/CalendrierMain.dart';
 import 'package:flutter_calendrier/view/inter_registeruser.dart';
 import 'package:flutter_calendrier/view/inter_resetpassword.dart';
-import 'package:intl/date_symbol_data_local.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_calendrier/db/firebase_options.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_calendrier/view/inter_registeruser.dart';
-
 import '../metiers/firebase_auth_services.dart';
-import 'MenuCalendrier.dart';
+import 'menu_calendrier.dart';
 
 void main(List<String> args) {
   runApp(const ConnexionApp());
@@ -44,7 +35,7 @@ class _RootPageState extends State<RootPage> {
 
   ///
   /// Récupère les nombre de calendrier d'un utilisateur donnée
-  List<Widget> RecupDonnees(String MailUser) {
+  List<Widget> recupDonnees(String mailUser) {
     List<String> data = ['Calendrier 1', 'Calendrier 2', 'Calendrier 3'];
     List<Widget> widgets = [];
 
@@ -61,7 +52,7 @@ class _RootPageState extends State<RootPage> {
       appBar: AppBar(
         title: const Text('Connexion'),
       ),
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width, // Full Width of Screen
         height: MediaQuery.of(context).size.height, // Full Height of Screen
         child: Form(
@@ -104,12 +95,13 @@ class _RootPageState extends State<RootPage> {
                   if (user != null) {
                     //successfull login
                     print("User successfully logged");
-                     Navigator.push(
-                      context,
+                    Navigator.push(
+                        context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                             MyCustomWidget(listTiles: RecupDonnees("MailUser") ))//   const CalendrierMain(title: 'Calendrier')),
-                    );
+                            builder: (context) => MyCustomWidget(
+                                listTiles: recupDonnees(
+                                    "mailUser"))) //   const CalendrierMain(title: 'Calendrier')),
+                        );
                   } else {
                     //unsuccessfull login
                     print("User unsuccessfully logged");

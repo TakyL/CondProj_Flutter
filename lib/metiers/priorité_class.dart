@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../outils/CustomMaterialColor.dart';
+import '../outils/custom_material_color.dart';
 
 List<prioriete> listp = <prioriete>[
   a,

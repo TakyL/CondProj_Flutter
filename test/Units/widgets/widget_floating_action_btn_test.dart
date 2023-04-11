@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_calendrier/widgets/Widget_FloatingActionBtn.dart';
+import 'package:flutter_calendrier/widgets/widget_floating_action_btn.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 
 void main() {
   group('MyFloatingActionButton', () {
@@ -21,7 +20,7 @@ void main() {
     });
 
     testWidgets('renders correctly with custom key', (tester) async {
-      final customKey = Key('test_key');
+      const customKey = Key('test_key');
 
       await tester.pumpWidget(MaterialApp(
         home: Scaffold(
@@ -53,8 +52,5 @@ void main() {
       await tester.tap(find.byType(MyFloatingActionButton));
       expect(wasPressed, isTrue);
     });
-
-
-
   });
 }

@@ -4,7 +4,7 @@ import 'package:flutter_calendrier/metiers/priorit%C3%A9_class.dart';
 
 import 'database_interface.dart';
 
-class db_prio implements database_interface {
+class db_prio implements DatabaseInterface {
   String path = "prio/";
 
   DatabaseReference connexion_db() {
@@ -29,32 +29,31 @@ class db_prio implements database_interface {
   }
 
   @override
-  void getDonneesByAttributs(String data) async {//Pour le moment, dans ce cas là, notre data correspond à une couleur: "Rouge","Bleu"Vert"...
-    if(data.isNotEmpty)
-      {
-        DatabaseReference db = connexion_db();
-        final snapshot = await db.child(path).get();
-        if (snapshot.exists) {
-          Map m = Map.fromIterable(snapshot.value as List);
-          List<prioriete> liste = [];
-          m.forEach((key, value) {
-            liste.add(prioriete.convert(value));
-          });
+  void getDonneesByAttributs(String data) async {
+    //Pour le moment, dans ce cas là, notre data correspond à une couleur: "Rouge","Bleu"Vert"...
+    if (data.isNotEmpty) {
+      DatabaseReference db = connexion_db();
+      final snapshot = await db.child(path).get();
+      if (snapshot.exists) {
+        Map m = Map.fromIterable(snapshot.value as List);
+        List<prioriete> liste = [];
+        m.forEach((key, value) {
+          liste.add(prioriete.convert(value));
+        });
 
-          liste.forEach((element) {
-            if(element.nom==data)
-              {
-               // return element;
-              }
-          });
+        liste.forEach((element) {
+          if (element.nom == data) {
+            // return element;
+          }
+        });
       }
-
-      }
+    }
     //else throw new
     // TODO: implement getDonneesByAttributs
   }
 
-  Future<prioriete?> getDonneesByAttributsv2(String data) async {//Will be getDonneesByAttributs
+  Future<prioriete?> getDonneesByAttributsv2(String data) async {
+    //Will be getDonneesByAttributs
     if (data.isNotEmpty) {
       DatabaseReference db = connexion_db();
       final snapshot = await db.child(path).get();

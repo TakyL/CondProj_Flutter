@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calendrier/metiers/user_class.dart';
 import 'package:flutter_calendrier/metiers/firebase_auth_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_calendrier/view/Connexion.dart';
+import 'package:flutter_calendrier/view/connexion.dart';
 
 class inter_resetpassword extends StatefulWidget {
   @override

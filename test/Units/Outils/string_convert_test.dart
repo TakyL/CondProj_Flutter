@@ -1,5 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_calendrier/outils/StringConvert.dart';
+import 'package:flutter_calendrier/outils/string_convert.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

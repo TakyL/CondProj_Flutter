@@ -5,12 +5,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendrier/metiers/evenements_class.dart';
 
-import '../outils/StringConvert.dart';
+import '../outils/string_convert.dart';
 
 class MyListTile extends StatelessWidget {
   final Evenement event;
 
-  const MyListTile({Key? key, required this.event}) : super(key: key);
+  const MyListTile({Key? key, required this.event, required String subtitle, required String title}) : super(key: key);
 
   void PushInterface()//DateTime.now + le callback sera unne function qui recherche dans une liste d'evenements et le modifie
   {

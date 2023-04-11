@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_calendrier/outils/StringConvert.dart';
+import 'package:flutter_calendrier/outils/string_convert.dart';
 
 import '../metiers/evenements_class.dart';
 class EventListWidget extends StatefulWidget {

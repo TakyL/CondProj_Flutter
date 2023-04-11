@@ -1,4 +1,3 @@
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -7,10 +6,10 @@ import '../db/database_evenement.dart';
 import '../db/database_prioriete.dart';
 import '../metiers/evenements_class.dart';
 import '../metiers/priorité_class.dart';
-import '../widgets/Widget_Container.dart';
-import '../widgets/Widget_FloatingActionBtn.dart';
-import 'Calendrier_Evenements.dart';
-import 'AjouterEvent.dart';
+import '../widgets/widget_container.dart';
+import '../widgets/widget_floating_action_btn.dart';
+import 'calendrier_evenements.dart';
+import 'ajouter_event.dart';
 
 ///Vue principale de l'app
 ///Peut-être split en deux sous vues : Une qui affiche le tablecalendar et une autre qui affiche les événements.
@@ -28,12 +27,10 @@ class _CalendrierMainState extends State<CalendrierMain> {
   FirebaseDatabase database = FirebaseDatabase.instance;
   DatabaseReference ref = FirebaseDatabase.instance.ref();
   void fas(DatabaseReference ref) async {
-    db_event e = db_event();
+    DbEvent e = DbEvent();
     e.getDonnees();
     // e.getDonneesById(3);
   }
-
-
 
   late Map<DateTime, List<Evenement>> selectedevents;
 
@@ -43,10 +40,10 @@ class _CalendrierMainState extends State<CalendrierMain> {
         context,
         MaterialPageRoute(
             builder: (context) => Inter_Event(
-                time: focusedday, callback: AjoutEvenementListCal)));
+                time: focusedday, callback: addEventListCalendar)));
   }
 
-  void AjoutEvenementListCal(DateTime d, Evenement e) {
+  void addEventListCalendar(DateTime d, Evenement e) {
     //La liste des events est géré localement, mais fait tout de même le post pour l'instant
     if (selectedevents[d] != null) {
       selectedevents[d]?.add(Evenement.json(
@@ -59,10 +56,9 @@ class _CalendrierMainState extends State<CalendrierMain> {
         heure_fin: e.heure_fin,
         prioName: e.prio.nom,
       ));
-      db_event liantdemo = db_event();
+      DbEvent liantdemo = DbEvent();
       liantdemo.postDonneees(e);
-    } else
-    {
+    } else {
       selectedevents[d] = [
         Evenement.json(
           nom: e.nom,
@@ -75,7 +71,7 @@ class _CalendrierMainState extends State<CalendrierMain> {
           prioName: e.prio.nom,
         )
       ];
-      db_event liantdemo = db_event();
+      DbEvent liantdemo = DbEvent();
 
       liantdemo.postDonneees(e);
       debugPrint("AJOUT");
@@ -101,12 +97,12 @@ class _CalendrierMainState extends State<CalendrierMain> {
       }
       }*/
   Future<MaterialColor> getMaterialColor(String prioName) async {
-    if (prioName?.isNotEmpty ?? false) {
-      debugPrint("TOUJOURS JE PASSERAIS"+prioName);
+    if (prioName.isNotEmpty) {
+      debugPrint("TOUJOURS JE PASSERAIS$prioName");
       db_prio dab = db_prio();
       prioriete? pr = await dab.getDonneesByAttributsv2(prioName);
       if (pr != null) {
-        debugPrint("Col" + pr.couleur.runtimeType.toString());
+        debugPrint("Col${pr.couleur.runtimeType}");
         MaterialColor a = await pr.couleur;
         return a;
       }
@@ -114,17 +110,13 @@ class _CalendrierMainState extends State<CalendrierMain> {
     return Colors.blue;
   }
 
-  Future<MaterialColor> test(Evenement evenement) async{
-
-    if(evenement.prioName?.isNotEmpty ?? false)
-      {
-
-        MaterialColor a = await getMaterialColor(evenement.prioName) ;
-        return a;
-      }
-    else throw ("Problème au niveau de la prioriété");
-
-
+  Future<MaterialColor> test(Evenement evenement) async {
+    if (evenement.prioName.isNotEmpty) {
+      MaterialColor a = await getMaterialColor(evenement.prioName);
+      return a;
+    } else {
+      throw ("Problème au niveau de la prioriété");
+    }
   }
 
   DateTime focusedday = DateTime.now();
@@ -151,7 +143,6 @@ class _CalendrierMainState extends State<CalendrierMain> {
 
     ///print(getFrenchDay("17/02/2022"));
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -203,10 +194,14 @@ class _CalendrierMainState extends State<CalendrierMain> {
                 return isSameDay(selectedday, date);
               },
             ),
-            ..._getEventsFromDay(selectedday).map((Evenement e)  => MyContainer (
-               // color:  test(e) as MaterialColor,//await test(e) as MaterialColor,//Colors.blueGrey,//e.prio.couleur,
+            ..._getEventsFromDay(selectedday).map((Evenement e) => MyContainer(
+                // color:  test(e) as MaterialColor,//await test(e) as MaterialColor,//Colors.blueGrey,//e.prio.couleur,
                 colorFuture: test(e),
-                child: MyListTile(event: e)/*ListTile(
+                child: MyListTile(
+                  event: e,
+                  subtitle: '',
+                  title: '',
+                ) /*ListTile(
                   title: Row(children: [
                     Text(StringConvert.formatDuration(e.date_debut, e.date_fin,
                         e.heure_debut, e.heure_fin)),
@@ -215,8 +210,8 @@ class _CalendrierMainState extends State<CalendrierMain> {
                         e.date_debut, e.date_fin, e.heure_debut, e.heure_fin))
                   ]),
                   subtitle: Text(e.nom),
-                )*/)
-            ),
+                )*/
+                )),
           ],
         ),
       ),
@@ -225,9 +220,7 @@ class _CalendrierMainState extends State<CalendrierMain> {
           key: const Key('add_event_btn'),
           onPressed: () {
             menuajoutevent();
-          }
-      ),
-    )
-    ;
+          }),
+    );
   }
 }
