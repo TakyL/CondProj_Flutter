@@ -1,9 +1,5 @@
-
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendrier/outils/StringConvert.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 import '../metiers/evenements_class.dart';
 class EventListWidget extends StatefulWidget {

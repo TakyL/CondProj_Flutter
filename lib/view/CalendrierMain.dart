@@ -1,6 +1,5 @@
 
 import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -8,7 +7,6 @@ import '../db/database_evenement.dart';
 import '../db/database_prioriete.dart';
 import '../metiers/evenements_class.dart';
 import '../metiers/priorité_class.dart';
-import '../outils/StringConvert.dart';
 import '../widgets/Widget_Container.dart';
 import '../widgets/Widget_FloatingActionBtn.dart';
 import 'Calendrier_Evenements.dart';
