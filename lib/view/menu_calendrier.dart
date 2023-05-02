@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/widget_floating_action_btn.dart';
+import 'calendrier_main.dart';
 import 'connexion.dart';
 
 ///
 /// Vue représentant le choix des calendriers
-/// Etat de sample pour le moment
-/// Il lui la liste des evenements sous forme de list de widget
+///
 ///
 class MyCustomWidget extends StatelessWidget {
 
@@ -29,6 +30,17 @@ class MyCustomWidget extends StatelessWidget {
     );
   }
 
+  ///
+  /// Permettra à un utilisateur de créer un nouveau calendrier
+  /// Pour l'instant ne fait que rediriger vers le calendrier par defaut
+  ///
+  void ajoutnouveauCalendrier(BuildContext context)
+  {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const CalendrierMain(title: 'Calendrier',)));
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,16 +50,32 @@ class MyCustomWidget extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: ListView(
-              children: listTiles,
+            child: ListView.builder(
+              itemCount: listTiles.length,
+              itemBuilder: (BuildContext context, int index) {
+                return GestureDetector(
+                  onTap: () {
+                    // handle the tap event here, for example:
+                    print('Tapped on item at index $index');
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CalendrierMain(title: 'Calendrier',)));
+                  },
+                  child: listTiles[index],
+                );
+              },
             ),
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => onBack(context),
-        child: const Icon(Icons.arrow_back),
-      ),
+      floatingActionButton: MyFloatingActionButton(
+          icon: Icons.add,
+          key: const Key('add_event_btn'),
+          onPressed: () {
+            ajoutnouveauCalendrier(context);
+          }),
+    );
     );
   }
 }

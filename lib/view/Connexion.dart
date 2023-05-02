@@ -1,8 +1,11 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_calendrier/db/database_calendar.dart';
 import 'package:flutter_calendrier/view/inter_registeruser.dart';
 import 'package:flutter_calendrier/view/inter_resetpassword.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../metiers/firebase_auth_services.dart';
+import '../metiers/lien_class.dart';
 import 'menu_calendrier.dart';
 
 void main(List<String> args) {
@@ -33,21 +36,49 @@ class _RootPageState extends State<RootPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  ///
-  /// Récupère les nombre de calendrier d'un utilisateur donnée
+  Future<List<String>> temp(String mailuser) async {
+    database_calendar db = database_calendar();
+    List<lien> donnees = await db.getDonnees();
+    List<int> a = await db.getDonnees2("John");
+    List<String> result = [];
+    if(a.isEmpty){
+      result.add('Aucun calendrier trouvee');
+    }
+    else
+      {
+        for (int l in a) {
+          result.add("Calendrier numéro "+l.toString());
+        }
+      }
+
+    return result;
+  }
+
   List<Widget> recupDonnees(String mailUser) {
-    List<String> data = ['Calendrier 1', 'Calendrier 2', 'Calendrier 3'];
     List<Widget> widgets = [];
 
-    for (String item in data) {
-      widgets.add(Text(item));
-    }
+    temp(mailUser).then((debut) {
+      if (debut != null) {
+        for (String item in debut) {
+          widgets.add(Text(item));
+          print("Ajout du widget"+item);
+        }
+      }
+    });
 
     return widgets;
   }
 
+  MyCustomWidget Lancement()
+  {
+   return MyCustomWidget(
+        listTiles: recupDonnees(
+            "john"));
+  }
+
   @override
   Widget build(BuildContext context) {
+    MyCustomWidget MyWidget = Lancement();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Connexion'),
@@ -98,10 +129,7 @@ class _RootPageState extends State<RootPage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => MyCustomWidget(
-                                listTiles: recupDonnees(
-                                    "mailUser"))) //   const CalendrierMain(title: 'Calendrier')),
-                        );
+                            builder: (context) => MyWidget));
                   } else {
                     //unsuccessfull login
                     print("User unsuccessfully logged");

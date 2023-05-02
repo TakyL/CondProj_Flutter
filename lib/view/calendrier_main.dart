@@ -98,7 +98,6 @@ class _CalendrierMainState extends State<CalendrierMain> {
       }*/
   Future<MaterialColor> getMaterialColor(String prioName) async {
     if (prioName.isNotEmpty) {
-      debugPrint("TOUJOURS JE PASSERAIS$prioName");
       db_prio dab = db_prio();
       prioriete? pr = await dab.getDonneesByAttributsv2(prioName);
       if (pr != null) {
