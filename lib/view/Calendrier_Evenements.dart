@@ -7,6 +7,7 @@ import 'package:flutter_calendrier/metiers/evenements_class.dart';
 
 import '../outils/string_convert.dart';
 
+///Affichage des événements dans un widget de type ListTile
 class MyListTile extends StatelessWidget {
   final Evenement event;
 

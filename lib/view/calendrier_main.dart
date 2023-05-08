@@ -12,7 +12,7 @@ import 'calendrier_evenements.dart';
 import 'ajouter_event.dart';
 
 ///Vue principale de l'app
-///Peut-être split en deux sous vues : Une qui affiche le tablecalendar et une autre qui affiche les événements.
+///Affichage d'un calendrier
 ///
 class CalendrierMain extends StatefulWidget {
   const CalendrierMain({Key? key, required this.title}) : super(key: key);
@@ -34,6 +34,7 @@ class _CalendrierMainState extends State<CalendrierMain> {
 
   late Map<DateTime, List<Evenement>> selectedevents;
 
+  ///Redirige vers le menu d'ajout d'un événement
   void menuajoutevent() //Push vers le menu d'ajout d'evenement
   {
     Navigator.push(
@@ -43,6 +44,7 @@ class _CalendrierMainState extends State<CalendrierMain> {
                 time: focusedday, callback: addEventListCalendar)));
   }
 
+  ///Ajout un evenement à la db
   void addEventListCalendar(DateTime d, Evenement e) {
     //La liste des events est géré localement, mais fait tout de même le post pour l'instant
     if (selectedevents[d] != null) {
@@ -84,18 +86,8 @@ class _CalendrierMainState extends State<CalendrierMain> {
   }
 
   List<prioriete> listp = <prioriete>[];
-  /**
-   * Permet de changer le jour selectionne
 
-      void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-      if (!isSameDay(_selectedDay, selectedDay)) {
-      setState(() {
-      _focusedDay = focusedDay;
-      _selectedDay = selectedDay;
-      _selectedEvents = _getEventsForDay(selectedDay);
-      });
-      }
-      }*/
+  ///Récupère la couleur en fonction de la prioriete de l'évenement en réalisant un appel à la db
   Future<MaterialColor> getMaterialColor(String prioName) async {
     if (prioName.isNotEmpty) {
       db_prio dab = db_prio();
@@ -109,7 +101,7 @@ class _CalendrierMainState extends State<CalendrierMain> {
     return Colors.blue;
   }
 
-  Future<MaterialColor> test(Evenement evenement) async {
+  Future<MaterialColor> CastToMaterialColor(Evenement evenement) async {
     if (evenement.prioName.isNotEmpty) {
       MaterialColor a = await getMaterialColor(evenement.prioName);
       return a;
@@ -131,18 +123,11 @@ class _CalendrierMainState extends State<CalendrierMain> {
   void initState() {
     selectedevents = {};
     super.initState();
-    //fas(ref);
-    /* String startDate = '16/02/2023';
-    String endDate = '16/02/2023';
-    String startHour = '16:50';
-    String endHour = '18:50';
-    String durationString =
-    formatDuration(startDate, endDate, startHour, endHour);
-    print(durationString);*/
 
     ///print(getFrenchDay("17/02/2022"));
   }
 
+  ///Construit l'interface du calendrier
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -153,7 +138,7 @@ class _CalendrierMainState extends State<CalendrierMain> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            TableCalendar(
+            TableCalendar(  //Widget calendrier
               locale: 'fr_FR',
               focusedDay: focusedday,
               firstDay: DateTime(2020),
@@ -193,9 +178,9 @@ class _CalendrierMainState extends State<CalendrierMain> {
                 return isSameDay(selectedday, date);
               },
             ),
-            ..._getEventsFromDay(selectedday).map((Evenement e) => MyContainer(
+            ..._getEventsFromDay(selectedday).map((Evenement e) => MyContainer(//Affiche des evenements
                 // color:  test(e) as MaterialColor,//await test(e) as MaterialColor,//Colors.blueGrey,//e.prio.couleur,
-                colorFuture: test(e),
+                colorFuture: CastToMaterialColor(e),
                 child: MyListTile(
                   event: e,
                   subtitle: '',
@@ -214,7 +199,7 @@ class _CalendrierMainState extends State<CalendrierMain> {
           ],
         ),
       ),
-      floatingActionButton: MyFloatingActionButton(
+      floatingActionButton: MyFloatingActionButton( //Bouton ajout
           icon: Icons.add,
           key: const Key('add_event_btn'),
           onPressed: () {

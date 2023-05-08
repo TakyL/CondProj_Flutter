@@ -9,6 +9,7 @@ class inter_resetpassword extends StatefulWidget {
   _inter_resetpassword createState() => _inter_resetpassword();
 }
 
+///Page de reset de mdp
 class _inter_resetpassword extends State<inter_resetpassword> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();

@@ -36,6 +36,8 @@ class _RootPageState extends State<RootPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  ///Récupère la liste des calendriers en fonction d'un mail de l'user
+  ///Renvoie Aucun calendrier trouvée si il ne trouve rien Sinon incrémente calendrier numéro pour chaque calendrier touvé
   Future<List<String>> temp(String mailuser) async {
     database_calendar db = database_calendar();
     List<lien> donnees = await db.getDonnees();
@@ -54,6 +56,7 @@ class _RootPageState extends State<RootPage> {
     return result;
   }
 
+  ///Met à jour le widget qui permet de savoir le nombre de calendrier d'un utilisateur
   List<Widget> recupDonnees(String mailUser) {
     List<Widget> widgets = [];
 
@@ -69,6 +72,7 @@ class _RootPageState extends State<RootPage> {
     return widgets;
   }
 
+  ///Pré-Construit le Widget
   MyCustomWidget Lancement()
   {
    return MyCustomWidget(

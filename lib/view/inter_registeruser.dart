@@ -9,6 +9,7 @@ class inter_registeruser extends StatefulWidget {
   _inter_registeruser createState() => _inter_registeruser();
 }
 
+///Page d'inscription
 class _inter_registeruser extends State<inter_registeruser> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();

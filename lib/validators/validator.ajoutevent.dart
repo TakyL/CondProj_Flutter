@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 /// Classe qui regroupe les validators de l'interface d'ajout d'évenements
  class Validator_ajoutevent
 {
+  ///Verifie que le string est bien à un format date :dd/MM/yyyy
   static bool validateDateFormat(String value) {
 
     final date = DateFormat('dd/MM/yyyy').parse(value, true);
@@ -17,6 +18,7 @@ import 'package:intl/intl.dart';
     return true;
   }
 
+  ///Vérifie que le string vérifie le format minutes suivant : HH:mm
   static bool validateTimeFormat(String value) {
 
     final time = TimeOfDay.fromDateTime(DateFormat('HH:mm').parse(value, true));
@@ -28,6 +30,7 @@ import 'package:intl/intl.dart';
     return true;
   }
 
+  ///Vérifie que la date de fin n'est pas avant la date de début
   static bool validateDatesFinAvantDebut(String startDate, String endDate) {
 
 
@@ -38,6 +41,7 @@ import 'package:intl/intl.dart';
 
   }
 
+  ///Vérifie que l'heure de fin n'est pas avant l'heure de début
   static bool validateHoursFinAvantDebut(String startHour, String endHour, String startDate, String endDate) {
     if (startHour.isEmpty || endHour.isEmpty || startDate.isEmpty || endDate.isEmpty) {
       return  false ;

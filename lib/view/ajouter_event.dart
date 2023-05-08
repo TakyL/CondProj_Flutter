@@ -10,6 +10,7 @@ import '../db/database_evenement.dart';
 import '../validators/validator.ajoutevent.dart';
 //List<String> l = listp.map((e) => e.nom).toList();
 
+///Interface de l'ajout d'évenemenent
 class Inter_Event extends StatefulWidget {
   final DateTime time; //Permettra d'init le date picker
   final void Function(DateTime d, Evenement e) callback; //Ajout la liste
@@ -36,7 +37,6 @@ class _Inter_EventState extends State<Inter_Event> {
   Color? DetermineCouleur(prioriete value) {
     // debugPrint(value.toString());
     return value.couleur;
-    //debugPrint(listp.toString());
   }
 
 
@@ -47,13 +47,16 @@ class _Inter_EventState extends State<Inter_Event> {
     super.dispose();
   }
 
+  ///Action du bouton PLUS
+  ///Verifie si tous les champs sont remplis et construit un évenement et l'ajoute à la db hrâce à un callback
+  ///
   void loginbutton() async{
     if (_formKey.currentState!.validate()) {
 
       widget.callback(
           widget.time,
           Evenement(
-              id: await DbEvent().countElement(),//TODO: Next Time:   faire db_prioriete(au moins le get) /!\ Casts à faire, gérer l'affichage couleur sur la vue evenement,  à la fin instancier selectedevents via la db et uniquement la db
+              id: await DbEvent().countElement(),
               nom: _CtrlNom.text,
               auteur: "TEST",
               date_debut: _CtrlDateD.text,
@@ -190,6 +193,7 @@ class _Inter_EventState extends State<Inter_Event> {
     ]);
   }
 
+  ///Construit un Widget date picker
   Future<DateTime?> datePicker() {
     return showDatePicker(
       context: context,
@@ -201,7 +205,7 @@ class _Inter_EventState extends State<Inter_Event> {
       cancelText: "ANNULER",
     );
   }
-
+  ///Construit un Widget hour picker
   Future<TimeOfDay?> hourPicker() {
     return showTimePicker(
       context: context,
@@ -224,6 +228,7 @@ class _Inter_EventState extends State<Inter_Event> {
     );
   }
 
+  ///Construit le widget
   @override
   Widget build(BuildContext context) {
     return Scaffold(
