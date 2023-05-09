@@ -73,7 +73,7 @@ Contributions are welcome! If you find a bug or have a feature request, please o
 
 ## License
 
-PlanIf is released under the XXX License. See LICENSE for details.
+PlanIf is released under the MIT License. See LICENSE for details.
 
 ## Mermaid JS
 graph TD
