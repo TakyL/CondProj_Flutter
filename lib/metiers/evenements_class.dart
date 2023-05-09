@@ -2,14 +2,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendrier/metiers/priorit%C3%A9_class.dart';
 
+///Classe métier événement
 class Evenement {
   // final DateTime date;
   late int id;
   final String nom;
   late String auteur;
-  late String date_debut;
+  late String date_debut;//format dd/mm/yyy
   late String date_fin;
-  late String heure_debut;
+  late String heure_debut;//format hh:mm
   late String heure_fin;
   late String description;
   late prioriete prio;
@@ -35,7 +36,7 @@ class Evenement {
       required this.heure_fin,
       required this.description,
         required this.prioName
-       } ); //Constructeur pour json temp
+       } ); //Constructeur pour json
 
   @override
   String toString() {

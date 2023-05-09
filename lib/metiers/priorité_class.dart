@@ -7,7 +7,7 @@ List<prioriete> listp = <prioriete>[
   b,
   c
 ];
-
+///Classe prioriete d'un événement
 class prioriete {
   late int id;
   late String nom;
