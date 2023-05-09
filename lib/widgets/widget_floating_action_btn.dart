@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+
+///Widget Bouton qui prend en paramètre
+///un icon => Icone propre à flutter
+///une key => Optionnel qui sert d'id pour des tests d'intégrations
+///VoidCallBack => Action du bouton
 class MyFloatingActionButton extends StatelessWidget {
   final IconData icon;
   final Key? key;

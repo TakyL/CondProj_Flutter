@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
 
-/**
- * Classe qui convertit du rgb vers du Material color
- */
+///
+///Classe qui convertit du rgb vers du Material color
+///
 class CustomMaterialColor {
   final int r;
   final int g;

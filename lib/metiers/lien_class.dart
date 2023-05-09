@@ -1,4 +1,6 @@
-class lien {
+///classe qui fait le lient entre un id calendrier et un id utiliseur
+class lien
+{
   late int id_cal;
   late int id_user;
 

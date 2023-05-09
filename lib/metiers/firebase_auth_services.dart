@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+///Classe métier firebase authentification utilisateur
 class FirebaseAuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 

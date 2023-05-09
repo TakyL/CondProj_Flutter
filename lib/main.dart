@@ -45,7 +45,6 @@ class MyApp extends StatelessWidget {
     const Locale('fr')
   ]
   ,*/
-        home: const RootPage());//CalendrierMain(title: 'PlanIf'));
-  }
+        home: const RootPage());  }
 }
 
