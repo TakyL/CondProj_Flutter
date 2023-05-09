@@ -48,8 +48,7 @@ class db_prio implements DatabaseInterface {
         });
       }
     }
-    //else throw new
-    // TODO: implement getDonneesByAttributs
+
   }
 
   Future<prioriete?> getDonneesByAttributsv2(String data) async {

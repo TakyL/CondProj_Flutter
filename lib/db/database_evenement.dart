@@ -41,7 +41,7 @@ class DbEvent implements DatabaseInterface {
 
   @override
   void getDonneesByAttributs(String data) {
-    // TODO: implement getDonneesByAttributs
+    // implement getDonneesByAttributs
     // metdode qui retourne les données en fonction d'un attribut
     
   }
